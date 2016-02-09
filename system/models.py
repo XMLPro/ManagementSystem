@@ -31,10 +31,11 @@ class Search(models.Model):
         return self.equipment_name + ": " + meta_data
 
 # [ 予約テーブル ]
-# 備品id(外部キー), ユーザーid(外部キー)
+# 備品id(外部キー), ユーザーid(外部キー), 予約日
 class Reserved(models.Model):
     equipment = models.ForeignKey(Equipment)
     user = models.ForeignKey(User)
+    reserved = models.DateField(default=date.today())
 
     def __str__(self):
         return self.equipment
@@ -57,7 +58,7 @@ class Vote(models.Model):
 
 # [ 貸出しログ ]
 # 借りた人(ユーザーid(外部キー)), 借りた物(備品id(外部キー)), 借りた日付
-class LendingHistory(models.Model):
+class Log(models.Model):
     user = models.ForeignKey(User)
     equipment = models.ForeignKey(Equipment)
     borrowed_date = models.DateField(default=date.today())
