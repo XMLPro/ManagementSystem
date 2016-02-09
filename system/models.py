@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date
+from django.utils import timezone
 
 # [ ユーザーテーブル ]
 # (id), ユーザー名, googleユーザーID
@@ -15,7 +15,7 @@ class User(models.Model):
 class Equipment(models.Model):
     equipment_name = models.CharField(max_length=50)
     borrower = models.ForeignKey(User)
-    borrowed_date = models.DateField(default=date.today())
+    borrowed_date = models.DateField(default=timezone.now())
     Lend_count = models.IntegerField(default=0)
 
     def __str__(self):
@@ -35,7 +35,7 @@ class Search(models.Model):
 class Reserved(models.Model):
     equipment = models.ForeignKey(Equipment)
     user = models.ForeignKey(User)
-    reserved = models.DateField(default=date.today())
+    reserved = models.DateField(default=timezone.now())
 
     def __str__(self):
         return self.equipment
@@ -61,7 +61,7 @@ class Vote(models.Model):
 class Log(models.Model):
     user = models.ForeignKey(User)
     equipment = models.ForeignKey(Equipment)
-    borrowed_date = models.DateField(default=date.today())
+    borrowed_date = models.DateField(default=timezone.now())
     def __str__(self):
         return self.user
 
