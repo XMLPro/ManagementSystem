@@ -28,7 +28,7 @@ class Search(models.Model):
     meta_data = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.equipment_name + ": " + meta_data
+        return str(self.equipment_name) + ": " + self.meta_data
 
 # [ 予約テーブル ]
 # 備品id(外部キー), ユーザーid(外部キー), 予約日
@@ -38,7 +38,7 @@ class Reserved(models.Model):
     reserved = models.DateField(default=timezone.now())
 
     def __str__(self):
-        return self.equipment
+        return str(self.equipment)
 
 # [ リクエストテーブル ]
 # (id), 商品名, AmazonURL, 一言コメント
@@ -54,8 +54,7 @@ class Vote(models.Model):
     request = models.ForeignKey(Request)
     user = models.ForeignKey(User)
     def __str__(self):
-        return self.request
-
+        return str(self.request)
 # [ 貸出しログ ]
 # 借りた人(ユーザーid(外部キー)), 借りた物(備品id(外部キー)), 借りた日付
 class Log(models.Model):
@@ -63,5 +62,5 @@ class Log(models.Model):
     equipment = models.ForeignKey(Equipment)
     borrowed_date = models.DateField(default=timezone.now())
     def __str__(self):
-        return self.user
+        return str(self.user)
 
