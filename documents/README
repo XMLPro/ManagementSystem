@@ -1,0 +1,4 @@
+# documentについて
+
+pdfはpandocを用いてmarkdownから生成したものである。
+makeコマンドでpdfが生成されるようになっているので詳しくはMakefileを参照してください
