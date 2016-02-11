@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
+from system.controllers import topView
 
-urlpatterns = patterns('system.controllers', 
-        url(r'^$', 'topView.topView'),
-)
+urlpatterns = [
+    url(r'^$', topView.topView),
+]
