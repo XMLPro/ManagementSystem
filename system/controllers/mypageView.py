@@ -3,5 +3,5 @@ from django.http import HttpResponse
 from system.models import *
 
 def mypageView(request):
-    return HttpResponse("mypageView")
+    return HttpResponse("mypageView ")
 
