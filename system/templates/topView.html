@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+
+<style type="text/css">
+
+</style>
+
+</head>
+<body>
+
+  <!-- test search form -->
+  <form method="post">
+    <input type="text" placeholder="search">
+    <input type="button" value="submit">
+  </form>
+  <!-- end test search form -->
+
+  <!-- main content -->
+
+  {% if equipment_list %}
+    <ul>
+      {% for equipment in equipment_list %}
+      <li>equipment_name: {{ equipment.equipment_name }} </li>
+      <ul>
+        <li>borrower: {{ equipment.borrower }}</li>
+        <li>borrower_date:  {{ equipment.borrowed_date }}</li>
+        <li>Lend_count: {{ equipment.Lend_count }}</li>
+        <li>reserved_num: {{ equipment.reserved_num }}</li>
+      </ul>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>no equipment_list</p>
+  {% endif %}
+  <!-- end main content -->
+
+</body>
+</html>
+
