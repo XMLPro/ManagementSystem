@@ -1,8 +1,5 @@
-from django.shortcuts import render
-
 from django.shortcuts import render_to_response
 from system.models import Equipment, Reserved
-# Create your views here.
 
 def topView(request):
     equipment_list = Equipment.objects.all()
