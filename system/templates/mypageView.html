@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Myページ{% endblock %}
+
+{% block content %}
+<h1>Myページ</h1>
+<hr>
+<h4>自分が借りているもの一覧</h4>
+<table>
+  <tr>
+    <th>備品名</th> <th>予約人数</th> <th></th>
+  </tr>
+  <!-- sample -->
+  <tr>
+    <form action="">
+      <input type="hidden" name="equipment_id" value="0">
+      <td>現在借りている書籍</td>
+      <td> 4 </td>
+      <td><input type="button" value="返却"></td>
+    </form>
+  </tr>
+  <!-- END sample -->
+  {% for my_borrow in my_list %}
+  <tr>
+    <form action="">
+      <input type="hidden" name="equipment_id" value="{{ my_borrow.equipment.id }}">
+      <td>{{ my_borrow.equipment.equipment_name }}</td>
+      <td>{{ my_borrow.reserved_num }}</td>
+      <td><input type="button" value="返却"></td>
+    </form>
+  </tr>
+  {% endfor %}
+</table>
+
+<hr>
+
+<h4>予約一覧</h4>
+<table>
+  <tr>
+    <th>備品名</th> <th></th> <th></th>
+  </tr>
+  <!-- sample -->
+  <tr>
+    <form action="">
+      <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
+      <td>予約している備品名</td>
+      <td><input type="button" value="予約取り消し"></td>
+      <td><input type="button" value="借りる"></td>
+    </form>
+  </tr>
+  <!-- END sample -->
+  {% for reserved in my_reserved %}
+  <tr>
+    <form action="">
+      <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
+      <td>{{ my_borrow.equipment.equipment_name }}</td>
+      <td><input type="button" value="予約取り消し"></td>
+      <td><input type="button" value="借りる"></td>
+    </form>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
