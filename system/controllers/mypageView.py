@@ -1,7 +1,11 @@
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
 from system.models import *
 
 def mypageView(request):
-    return HttpResponse("mypageView ")
+    my_list = []
+    my_reserved = []
+    return render_to_response('mypageView.html',{
+        'my_list': my_list,
+        'my_reserved': my_reserved,
+        })
 
