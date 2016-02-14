@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>リクエストページ</title>
+</head>
+<body>
+{% if request_list %}
+    <form action="{% url 'system:vote' %}" method="post">
+        {% csrf_token %}
+        <table border="1">
+            <tr>
+                <th></th>
+                <th>備品名</th>
+                <th>AmazonURL</th>
+            </tr>
+            {% for request in request_list %}
+                <tr>
+                    <th>
+                        <button type="submit" name="request_id" value="{{ request.id }}">投票</button>
+                    </th>
+                    <th>{{ request.request_name }}</th>
+                    <th>{{ request.url }}</th>
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+{% else %}
+    <p>No data</p>
+{% endif %}
+<h3>新規追加</h3>
+
+<form method="post">
+    <p>
+        <label for="amazon_url">AmazonURL: <input type="text" required></label>
+    </p>
+
+    <p>
+        <label for="speak">一言: <input type="text"></label>
+    </p>
+</form>
+
+</body>
+</html>
