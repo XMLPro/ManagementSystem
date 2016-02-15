@@ -14,7 +14,6 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from system.controllers import loginView
 
 urlpatterns = [
     url(r'^system/', include('system.urls')),

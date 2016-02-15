@@ -29,13 +29,6 @@ class LoginMiddleware:
     """
 
     def process_request(self, request):
-        assert hasattr(request, 'user'), "ログイン要求ミドルウェア\
-はユーザ認証ミドルウェアのインストールを要求します。MIDDLEWARE_CLASSES を\
-編集して、'django.contrib.auth.middlware.AuthenticationMiddleware' を\
-追加してください。動作しない場合、 TEMPLATE_CONTEXT_PROCESSORS 設定が\
-'django.core.context_processors.auth' に読み込まれていることを\
-確認して下さい。"
-
         if not request.user.is_authenticated():
             path = request.path_info.lstrip('/')
             if not any(m.match(path) for m in EXEMPT_URLS):
@@ -45,7 +38,5 @@ class LoginMiddleware:
             path = request.path_info.lstrip('/')
             if not any(m.match(path) for m in ALLOWED_EXEMPT_URLS):
                 print('not allowed')
-                print(request.user.is_valid)
             else:
                 print('allowed')
-                print(request.user.is_valid)
