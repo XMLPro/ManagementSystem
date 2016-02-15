@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# [ ユーザーテーブル ]
-# (id), ユーザー名, googleユーザーID
+
 class CustomUser(AbstractUser):
     is_valid = models.BooleanField(default=False)
 

@@ -27,8 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = 'login/'
+LOGIN_URL = '/system/login/'
 # Application definition
+LOGIN_REDIRECT_URL = '/system/'
+ALLOWED_EXEMPT_URLS = (
+    r'^admin/',
+    r'^system/$'
+)
+
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -49,6 +55,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'system.middleware.loginMiddleware.LoginMiddleware',
 )
 
 ROOT_URLCONF = 'ManagementSystem.urls'

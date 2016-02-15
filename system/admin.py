@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import CustomUser, Equipment, Search, Reserved, Request, Vote, Log
 
 admin.site.register(CustomUser)
 admin.site.register(Equipment)
