@@ -19,12 +19,12 @@
     </form>
   </tr>
   <!-- END sample -->
-  {% for my_borrow in my_list %}
+  {% for borrower_item in borrower_list%}
   <tr>
     <form action="">
       <input type="hidden" name="equipment_id" value="{{ my_borrow.equipment.id }}">
-      <td>{{ my_borrow.equipment.equipment_name }}</td>
-      <td>{{ my_borrow.reserved_num }}</td>
+      <td>{{ borrower_item }}</td>
+      <td>{{ borrower_item.num }}</td>
       <td><input type="button" value="返却"></td>
     </form>
   </tr>
@@ -48,11 +48,11 @@
     </form>
   </tr>
   <!-- END sample -->
-  {% for reserved in my_reserved %}
+  {% for reserved_item in reserved_list %}
   <tr>
     <form action="">
       <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
-      <td>{{ my_borrow.equipment.equipment_name }}</td>
+      <td>{{ reserved_item.equipment.equipment_name }}</td>
       <td><input type="button" value="予約取り消し"></td>
       <td><input type="button" value="借りる"></td>
     </form>
