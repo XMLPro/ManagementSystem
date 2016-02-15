@@ -22,8 +22,7 @@
   <h1>貸出備品一覧: {{ username }}</h1>
 
   <!-- test search form -->
-  <form method="post" action="/system/">
-    {% csrf_token %}
+  <form method="get" action="/system/">
     <input type="text" placeholder="search">
     <input type="button" value="submit">
   </form><br>
@@ -38,25 +37,24 @@
       <th>貸出回数</th>
       <th>予約数</th>
       <th>借りてる人</th>
-      <th>るーぷかうんと</th>
     </tr>
     {% for equipment in equipment_list %}
     <tr>
       <td>
         {% if equipment.borrower == username %}
-        <form method="get" action="/system/return">
+        <form method="post" action="">
           {% csrf_token %}
           <!-- <input type="button" value="lend" name="equipment"> -->
           <button name="equipment_name" value="{{ equipment.equipment_name }}">返</button>
         </form>
         {% elif equipment.borrower %}
-        <form method="get" action="/system/reserve">
+        <form method="post" action="">
           {% csrf_token %}
           <!-- <input type="button" value="lend" name="equipment"> -->
           <button name="equipment_name" value="{{ equipment.equipment_name }}">予</button>
         </form>
         {% else %}
-        <form method="get" action="/system/borrow">
+        <form method="post" action="">
           {% csrf_token %}
           <!-- <input type="button" value="lend" name="equipment"> -->
           <button name="equipment_name" value="{{ equipment.equipment_name }}">借</button>
@@ -67,7 +65,6 @@
       <td>{{ equipment.Lend_count }}</td>
       <td>{{ equipment.reserved_num }}</td>
       <td>{{ equipment.borrower }}</td>
-      <td>{{ forloop.counter }}</td>
     </tr>
     {% endfor %}
   </table>
