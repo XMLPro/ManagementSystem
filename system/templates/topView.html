@@ -3,34 +3,74 @@
 <meta charset="utf-8">
 <head>
 
+<title>備品管理システム</title>
 <style type="text/css">
-
+  th{
+    padding: 5px;
+    margin: 5px;
+  }
+  td{
+    padding: 3px;
+    margin: 5px;
+  }
 </style>
 
 </head>
 <body>
 
+  {% if equipment_list %}
+  <h1>貸出備品一覧: {{ username }}</h1>
+
   <!-- test search form -->
-  <form method="post">
+  <form method="post" action="/system/">
+    {% csrf_token %}
     <input type="text" placeholder="search">
     <input type="button" value="submit">
-  </form>
+  </form><br>
   <!-- end test search form -->
 
   <!-- main content -->
 
-  {% if equipment_list %}
-    <ul>
-      {% for equipment in equipment_list %}
-      <li>equipment_name: {{ equipment.equipment_name }} </li>
-      <ul>
-        <li>borrower: {{ equipment.borrower }}</li>
-        <li>borrower_date:  {{ equipment.borrowed_date }}</li>
-        <li>Lend_count: {{ equipment.Lend_count }}</li>
-        <li>reserved_num: {{ equipment.reserved_num }}</li>
-      </ul>
-      {% endfor %}
-    </ul>
+  <table>
+    <tr>
+      <th>貸出ボタン</th>
+      <th>名前</th>
+      <th>貸出回数</th>
+      <th>予約数</th>
+      <th>借りてる人</th>
+      <th>るーぷかうんと</th>
+    </tr>
+    {% for equipment in equipment_list %}
+    <tr>
+      <td>
+        {% if equipment.borrower == username %}
+        <form method="get" action="/system/return">
+          {% csrf_token %}
+          <!-- <input type="button" value="lend" name="equipment"> -->
+          <button name="equipment_name" value="{{ equipment.equipment_name }}">返</button>
+        </form>
+        {% elif equipment.borrower %}
+        <form method="get" action="/system/reserve">
+          {% csrf_token %}
+          <!-- <input type="button" value="lend" name="equipment"> -->
+          <button name="equipment_name" value="{{ equipment.equipment_name }}">予</button>
+        </form>
+        {% else %}
+        <form method="get" action="/system/borrow">
+          {% csrf_token %}
+          <!-- <input type="button" value="lend" name="equipment"> -->
+          <button name="equipment_name" value="{{ equipment.equipment_name }}">借</button>
+        </form>
+        {% endif %}
+      </td>
+      <td>{{ equipment.equipment_name}}</td>
+      <td>{{ equipment.Lend_count }}</td>
+      <td>{{ equipment.reserved_num }}</td>
+      <td>{{ equipment.borrower }}</td>
+      <td>{{ forloop.counter }}</td>
+    </tr>
+    {% endfor %}
+  </table>
   {% else %}
     <p>no equipment_list</p>
   {% endif %}

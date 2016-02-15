@@ -8,7 +8,7 @@ def topView(request):
     equipment_list = Equipment.objects.all()
     for equipment in equipment_list:
         equipment.reserved_num = Reserved.objects.filter(equipment=equipment).count()
-        print(equipment.reserved_num)
+        # print(equipment.reserved_num)
     return render_to_response('topView.html', {
         'equipment_list': equipment_list,
     })
