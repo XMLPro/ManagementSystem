@@ -16,9 +16,23 @@
             </tr>
             {% for request in request_list %}
                 <tr>
-                    <th>
-                        <button type="submit" name="request_id" value="{{ request.id }}">投票</button>
-                    </th>
+                    {% if vote_list %}
+                        {% for vote_item in vote_list %}
+                            {% if vote_item.request.id != request.id %}
+                                <th>
+                                    <button type="submit" name="request_id" value="{{ request.id }}">投票</button>
+                                </th>
+                            {% else %}
+                                <th>
+                                    投票済み
+                                </th>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <th>
+                            <button type="submit" name="request_id" value="{{ request.id }}">投票</button>
+                        </th>
+                    {% endif %}
                     <th>{{ request.request_name }}</th>
                     <th>{{ request.url }}</th>
                 </tr>
