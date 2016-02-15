@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = '/system/login/'
+LOGIN_URL = '/login/'
 # Application definition
 LOGIN_REDIRECT_URL = '/system/'
 ALLOWED_EXEMPT_URLS = (
