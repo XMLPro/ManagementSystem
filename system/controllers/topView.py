@@ -11,4 +11,5 @@ def topView(request):
         # print(equipment.reserved_num)
     return render_to_response('topView.html', {
         'equipment_list': equipment_list,
+        'username': request.user,
     })
