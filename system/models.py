@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):
 # (id), 備品名, 借用者(ユーザーid(外部キー)), 借りた日, 貸出し回数
 class Equipment(models.Model):
     equipment_name = models.CharField(max_length=50)
-    borrower = models.ForeignKey(CustomUser)
+    borrower = models.ForeignKey(CustomUser, null=True, blank=True)
     borrowed_date = models.DateField(auto_now=True)
     Lend_count = models.IntegerField(default=0)
 
