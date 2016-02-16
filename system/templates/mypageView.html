@@ -19,7 +19,8 @@
     </form>
     </tr>
     END sample -->
-    <form action="">
+    <form action="" method="post">
+      {% csrf_token %}
       {% for borrower_item in borrower_list%}
       <tr>
         <td>{{ borrower_item }}</td>
@@ -49,7 +50,8 @@
     END sample -->
     {% for reserved_item in reserved_list %}
     <tr>
-      <form action="">
+      <form action="" method="post">
+        {% csrf_token %}
         <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
         <td>{{ reserved_item.equipment.equipment_name }}</td>
         <td><input type="button" value="予約取り消し"></td>
