@@ -9,26 +9,25 @@
   <tr>
     <th>備品名</th> <th>予約人数</th> <th></th>
   </tr>
-  <!-- sample -->
-  <tr>
+  <!-- sample
+    <tr>
     <form action="">
-      <input type="hidden" name="equipment_id" value="0">
-      <td>現在借りている書籍</td>
-      <td> 4 </td>
-      <td><input type="button" value="返却"></td>
+    <input type="hidden" name="equipment_id" value="0">
+    <td>現在借りている書籍</td>
+    <td> 4 </td>
+    <td><input type="button" value="返却"></td>
     </form>
-  </tr>
-  <!-- END sample -->
-  {% for borrower_item in borrower_list%}
-  <tr>
+    </tr>
+    END sample -->
     <form action="">
-      <input type="hidden" name="equipment_id" value="{{ my_borrow.equipment.id }}">
-      <td>{{ borrower_item }}</td>
-      <td>{{ borrower_item.num }}</td>
-      <td><input type="button" value="返却"></td>
+      {% for borrower_item in borrower_list%}
+      <tr>
+        <td>{{ borrower_item }}</td>
+        <td>{{ borrower_item.num }}</td>
+        <td><button value="{{ my_borrow.equipment.id }}">返却</button></td>
+      </tr>
+      {% endfor %}
     </form>
-  </tr>
-  {% endfor %}
 </table>
 
 <hr>
@@ -38,25 +37,25 @@
   <tr>
     <th>備品名</th> <th></th> <th></th>
   </tr>
-  <!-- sample -->
-  <tr>
+  <!-- sample
+    <tr>
     <form action="">
-      <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
-      <td>予約している備品名</td>
-      <td><input type="button" value="予約取り消し"></td>
-      <td><input type="button" value="借りる"></td>
+    <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
+    <td>予約している備品名</td>
+    <td><input type="button" value="予約取り消し"></td>
+    <td><input type="button" value="借りる"></td>
     </form>
-  </tr>
-  <!-- END sample -->
-  {% for reserved_item in reserved_list %}
-  <tr>
-    <form action="">
-      <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
-      <td>{{ reserved_item.equipment.equipment_name }}</td>
-      <td><input type="button" value="予約取り消し"></td>
-      <td><input type="button" value="借りる"></td>
-    </form>
-  </tr>
-  {% endfor %}
+    </tr>
+    END sample -->
+    {% for reserved_item in reserved_list %}
+    <tr>
+      <form action="">
+        <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
+        <td>{{ reserved_item.equipment.equipment_name }}</td>
+        <td><input type="button" value="予約取り消し"></td>
+        <td><input type="button" value="借りる"></td>
+      </form>
+    </tr>
+    {% endfor %}
 </table>
 {% endblock %}
