@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-<meta charset="utf-8">
-<head>
+{% extends "base.html" %}
 
-<title>備品管理システム</title>
+{% block title %}備品管理システム{% endblock %}
+{% block moreStyle %}
 <style type="text/css">
   th{
     padding: 5px;
@@ -14,10 +12,8 @@
     margin: 5px;
   }
 </style>
-
-</head>
-<body>
-
+{% endblock %}
+{% block content %}
   {% if equipment_list %}
   <h1>貸出備品一覧: {{ username }}</h1>
 
@@ -74,6 +70,4 @@
   {% endif %}
   <!-- end main content -->
 
-</body>
-</html>
-
+{% endblock %}
