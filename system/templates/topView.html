@@ -22,7 +22,8 @@
   <h1>貸出備品一覧: {{ username }}</h1>
 
   <!-- test search form -->
-  <form method="get" action="/system/">
+  <form method="post" action="/system/">
+    {% csrf_token %}
     <input type="text" placeholder="search">
     <input type="button" value="submit">
   </form><br>

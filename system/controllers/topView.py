@@ -1,10 +1,9 @@
 from django.shortcuts import render_to_response
 from system.models import Equipment, Reserved
-from django.contrib.auth.decorators import *
+from django.template import RequestContext
 
-
-@login_required
 def topView(request):
+    ctxt = RequestContext(request, {})
     equipment_list = Equipment.objects.all()
     for equipment in equipment_list:
         equipment.reserved_num = Reserved.objects.filter(equipment=equipment).count()
@@ -12,4 +11,4 @@ def topView(request):
     return render_to_response('topView.html', {
         'equipment_list': equipment_list,
         'username': request.user,
-    })
+    }, ctxt)
