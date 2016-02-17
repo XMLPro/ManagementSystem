@@ -38,25 +38,11 @@
     {% for equipment in equipment_list %}
     <tr>
       <td>
-        {% if equipment.borrower == username %}
-        <form method="post" action="">
+        <form method="post" action="{{ equipment.button.url }}">
           {% csrf_token %}
-          <!-- <input type="button" value="lend" name="equipment"> -->
-          <button name="equipment_name" value="{{ equipment.equipment_name }}">返</button>
+          <button name="equipment_name" value="{{ equipment.equipment_name }}">{{ equipment.button }}</button>
         </form>
-        {% elif equipment.borrower %}
-        <form method="post" action="">
-          {% csrf_token %}
-          <!-- <input type="button" value="lend" name="equipment"> -->
-          <button name="equipment_name" value="{{ equipment.equipment_name }}">予</button>
-        </form>
-        {% else %}
-        <form method="post" action="">
-          {% csrf_token %}
-          <!-- <input type="button" value="lend" name="equipment"> -->
-          <button name="equipment_name" value="{{ equipment.equipment_name }}">借</button>
-        </form>
-        {% endif %}
+        {# {% endif %} #}
       </td>
       <td>{{ equipment.equipment_name}}</td>
       <td>{{ equipment.Lend_count }}</td>
