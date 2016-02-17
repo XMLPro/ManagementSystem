@@ -12,8 +12,11 @@ class Button:
     def __str__(self):
         return self.name
 
+
 # Buttonクラスを作成する関数
 # これらはcreate_buttonから使用される
+
+
 def create_borrow_button():
     return Button("", "借")
 
@@ -35,10 +38,10 @@ def create_button(equipment, username):
     # 備品を借りている人の名前と、自分の名前が一致
     if equipment.borrower == username:
         return create_return_button()
-    reserved = Reserved.objects.filter(equipment = equipment)
 
     # [ 借りる ]
     # 予約者がおり、自分の名前と一致
+    reserved = Reserved.objects.filter(equipment=equipment)
     if reserved and reserved[0].user == username:
         return create_borrow_button()
 
@@ -49,7 +52,7 @@ def create_button(equipment, username):
 
     # [ 借りる ]
     # 借りているがいない
-    if equipment.borrower == None:
+    if not equipment.borrower:
         return create_borrow_button()
 
     # [ 予約 ]
@@ -63,8 +66,9 @@ def topView(request):
     # equipmentにフィールド追加
     # .reserved_num: 予約者人数
     # .button:       備品の貸出制御ボタン
+    res_objs = Reserved.objects
     for equipment in equipment_list:
-        equipment.reserved_num = Reserved.objects.filter(equipment=equipment).count()
+        equipment.reserved_num = res_objs.filter(equipment=equipment).count()
         equipment.button = create_button(equipment, request.user)
 
     return render_to_response('topView.html', {
