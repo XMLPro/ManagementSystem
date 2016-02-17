@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from system.models import CustomUser, Equipment, Reserved
+from system.models import Equipment, Reserved
 
 def mypageView(request):
     borrower_list = Equipment.objects.filter(borrower=request.user.id)
