@@ -1,6 +1,8 @@
 from django.shortcuts import render_to_response
 from system.models import Equipment, Reserved
 from django.template import RequestContext
+
+
 class Button:
     """ topView.htmlで使用されている、備品の貸出制御ボタン """
     def __init__(self, url, name):
@@ -14,12 +16,19 @@ class Button:
 # これらはcreate_buttonから使用される
 def create_borrow_button():
     return Button("", "借")
+
+
 def create_reserve_button():
     return Button("", "予")
+
+
 def create_return_button():
     return Button("", "返")
+
+
 def create_finish_button():
     return Button("", "済")
+
 
 def create_button(equipment, username):
     # [ 返えす ]
@@ -46,6 +55,7 @@ def create_button(equipment, username):
     # [ 予約 ]
     # それ以外
     return create_reserve_button()
+
 
 def topView(request):
     ctxt = RequestContext(request, {})
