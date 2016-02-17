@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from system.models import Equipment, Reserved
 from django.template import RequestContext
-class Button():
+class Button:
     """ topView.htmlで使用されている、備品の貸出制御ボタン """
     def __init__(self, url, name):
         self.url = url
