@@ -40,15 +40,20 @@ def create_button(equipment, username):
         return create_return_button()
 
     # [ 借りる ]
-    # 予約者がおり、自分の名前と一致
+    # 借りてる人がおらず、予約者がおり、自分の名前と一致
     reserved = Reserved.objects.filter(equipment=equipment)
-    if reserved and reserved[0].user == username:
+    if not equipment.borrower and reserved and reserved[0].user == username:
         return create_borrow_button()
 
     # [ 済み ]
     # 予約者に自分の名前が含まれている
     if str(username) in [str(x.user) for x in reserved]:
         return create_finish_button()
+
+    # [ 予約 ]
+    # 予約者が存在する
+    if reserved:
+        return create_reserve_button()
 
     # [ 借りる ]
     # 借りているがいない
