@@ -16,7 +16,17 @@
       {% block moreStyle %}{% endblock %}
   </head>
   <body>
+    <header>
+      <a href="/logout" style="float:right">Logout</a>
+      <h1>{% block pagetitle %}{% endblock %}</h1>
+      {% block header %}{% endblock %}
+    </header>
+    <main>
     {% block content %}Content Body{% endblock %}
+    </main>
+    <footer>
+      {% block footer %}{% endblock %}
+    </footer>
     <!-- Place your content here -->
     <!-- SCRIPTS -->
     <!-- Example: <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
