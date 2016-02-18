@@ -54,8 +54,8 @@
         {% csrf_token %}
         <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
         <td>{{ reserved_item.equipment.equipment_name }}</td>
-        <td><input type="button" value="予約取り消し"></td>
-        <td><input type="button" value="借りる"></td>
+        <td><input type="submit" value="予約取り消し"></td>
+        <td><input type="submit" value="借りる"></td>
       </form>
     </tr>
     {% endfor %}
