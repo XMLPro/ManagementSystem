@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}備品の歴史{% endblock %}
+{% block moreStyle %}
+<style type="text/css">
+</style>
+{% endblock %}
+{% block content %}
+  {% if log_list %}
+  <h1>備品の歴史</h1>
+
+  <!-- test search form -->
+  <form method="post" action="">
+    {% csrf_token %}
+    <input type="text" placeholder="search">
+    <input type="submit" value="submit">
+  </form><br>
+  <!-- end test search form -->
+
+  <!-- main content -->
+
+  <table>
+    <tr>
+      <th>借りた人</th>
+      <th>借りた物</th>
+      <th>借りた日</th>
+    </tr>
+    {% for log in log_list %}
+    <tr>
+      <td>{{ log.user }}</td>
+      <td>{{ log.equipment}}</td>
+      <td>{{ log.borrowed_date }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+    <p>no log_list</p>
+  {% endif %}
+  <!-- end main content -->
+
+{% endblock %}

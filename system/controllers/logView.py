@@ -1,7 +1,10 @@
 from django.shortcuts import render_to_response
-from django.http import HttpResponse
-from system.models import *
+from system.models import Log
+from django.template import RequestContext
+
 
 def logView(request):
-    return HttpResponse("logView")
-
+    log_list = Log.objects.all()
+    return render_to_response("logView.html", RequestContext(request, {
+        "log_list": log_list,
+            }))
