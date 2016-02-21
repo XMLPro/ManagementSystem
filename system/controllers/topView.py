@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from system.models import Equipment, Reserved
 from django.template import RequestContext
+from django.contrib import messages
 
 
 class Button:
@@ -18,7 +19,7 @@ class Button:
 
 
 def create_borrow_button():
-    return Button("", "借")
+    return Button("/system/manage/borrow/", "借")
 
 
 def create_reserve_button():
@@ -26,7 +27,7 @@ def create_reserve_button():
 
 
 def create_return_button():
-    return Button("", "返")
+    return Button("/system/manage/return/", "返")
 
 
 def create_finish_button():
@@ -76,6 +77,7 @@ def topView(request):
         equipment.reserved_num = res_objs.filter(equipment=equipment).count()
         equipment.button = create_button(equipment, request.user)
 
+    messages.success(request, "topView")
     return render_to_response('topView.html', {
         'equipment_list': equipment_list,
         'username': request.user,
