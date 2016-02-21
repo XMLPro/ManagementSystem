@@ -13,7 +13,6 @@ def postFinishView(request):
     # で表示されます
     try:
         # 必要そうなものを列挙
-        # 自分が使ったのは2個のみ
         message = {
             "borrow": "貸出",
             "return": "返却",
