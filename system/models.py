@@ -65,6 +65,7 @@ class Log(models.Model):
     user = models.ForeignKey(CustomUser)
     equipment = models.ForeignKey(Equipment)
     borrowed_date = models.DateField(auto_now=True)
+    return_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return str(self.user)
