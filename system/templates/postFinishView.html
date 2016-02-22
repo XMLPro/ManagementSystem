@@ -1,6 +1,25 @@
 {% extends "base.html" %}
 {% block title %}{{ message }}完了{% endblock %}
+{% block moreStyle %}
+<script type="text/javascript">
+  function redirect(id, init_time){
+    var timer = init_time - 1;
+    return function(){
+      if(timer > 0){
+        document.getElementById(id).innerHTML = timer;
+        timer--;
+      }else{
+        location.href='/system/';
+      }
+    }
+  }
+var count_up = redirect("redirect_to_topView", 3);
+setInterval(count_up, 1000);
+</script>
+{% endblock %}
 
 {% block content %}
-{{ message }}が完了しました！
+{% block pagetitle %}{{ message }}が完了しました！{% endblock %}
+<p><span id="redirect_to_topView">3</span>秒後にトップページに飛びます。</p>
+<a href="/system/">トップページに移動する</a>
 {% endblock %}
