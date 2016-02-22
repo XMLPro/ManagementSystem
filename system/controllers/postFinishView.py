@@ -22,7 +22,7 @@ def postFinishView(request):
             "request": "リクエスト",
             "delete": "削除",
         }[request.GET["message"]]
-    except KeyError as e:
+    except KeyError:
         # 上のリストに無いものが送られてきた場合
         message = "何か"
     return render_to_response("postFinishView.html", RequestContext(request, {

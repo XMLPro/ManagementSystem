@@ -1,8 +1,6 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import redirect
 from django.utils import timezone
 from system.models import Equipment, Reserved, Log
-from django.template import RequestContext
-from django.core.urlresolvers import reverse
 import datetime
 from system.controllers.postFinishView import finish
 
@@ -46,7 +44,7 @@ def borrowPost(request):
 
 
 def returnPost(request):
-    # [ 返却処理 ]を行います 
+    # [ 返却処理 ]を行います
     # equipmentのborrowerを空にする
     # logに返却日を記載
 
@@ -64,12 +62,12 @@ def returnPost(request):
     # [ logに返却日を記載 ]
     try:
         log = Log.objects.get(equipment=equipment, return_date=None)
-    except Log.MultipleObjectsReturned as e:
+    except Log.MultipleObjectsReturned:
         # 複数の人が同じequipmentを借りている状態の場合
 
         # 後ろから一件取得　[-1:]が使えませんでした
         log = Log.objects.filter(equipment=equipment, user=borrower, return_date=None)[::-1][0]
-    except Log.DoesNotExist as e:
+    except Log.DoesNotExist:
         # 貸したはずのequipmentがLogに無い場合
 
         log = None
