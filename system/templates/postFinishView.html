@@ -9,7 +9,7 @@
         document.getElementById(id).innerHTML = timer;
         timer--;
       }else{
-        location.href='/system/';
+        location.href="{% url 'system:top' %}";
       }
     }
   }
@@ -21,5 +21,5 @@ setInterval(count_up, 1000);
 {% block content %}
 {% block pagetitle %}{{ message }}が完了しました！{% endblock %}
 <p><span id="redirect_to_topView">3</span>秒後にトップページに飛びます。</p>
-<a href="/system/">トップページに移動する</a>
+<a href="{% url 'system:top' %}">トップページに移動する</a>
 {% endblock %}
