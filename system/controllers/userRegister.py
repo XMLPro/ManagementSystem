@@ -16,10 +16,6 @@ class RegisterForm(UserCreationForm):
         fields = ("username",)
 
 
-    def get(self):
-        return self.cleaned_data
-
-    
     def save(self, commit=True):
         print(" === save === ")
         user = super(RegisterForm, self).save(commit=False)
