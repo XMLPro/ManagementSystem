@@ -1,0 +1,14 @@
+<p>ユーザー登録</p>
+<form method="post" action="{% url 'system:user_register' %}">
+    {% csrf_token %}
+    <table>
+    {% for form in register_forms %}
+      <tr>
+        <td>{{ form.label_tag }}</td>
+        <td>{{ form }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+
+    <input type="submit" value="register"/>
+</form>
