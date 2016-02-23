@@ -40,14 +40,13 @@ def userRegister(request):
             print("=== create user ===: " + str(form.cleaned_data["username"]))
             form.save()
             return redirect(reverse("system:finish_register"))
-        return redirect(reverse("system:user_register"))
     return userRegisterView(request)
 
 
 def userRegisterView(request):
     return render_to_response(
         "userRegisterView.html", RequestContext(request, {
-            "register_forms": RegisterForm(),
+            "register_forms": RegisterForm(data=request.POST),
         }))
 
 
