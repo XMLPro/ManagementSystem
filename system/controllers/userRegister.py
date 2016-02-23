@@ -15,6 +15,14 @@ class RegisterForm(UserCreationForm):
         model = CustomUser
         fields = ("username",)
 
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        username = self.cleaned_data["username"]
+        if email and CustomUser.objects.filter(email=email).exclude(username=username).count():
+            raise forms.ValidationError("Email addresses must be unique.")
+        return email
+
+
     def save(self, commit=True):
         print(" === save === ")
         user = super(RegisterForm, self).save(commit=False)
