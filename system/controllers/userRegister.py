@@ -15,11 +15,11 @@ class RegisterForm(UserCreationForm):
         model = CustomUser
         fields = ("username",)
 
-
     def save(self, commit=True):
         print(" === save === ")
         user = super(RegisterForm, self).save(commit=False)
-        user.email = BaseUserManager.normalize_email(self.cleaned_data["email"])
+        user.email = BaseUserManager.normalize_email(
+                self.cleaned_data["email"])
         if commit:
             user.save()
         return user
@@ -29,7 +29,7 @@ def userRegister(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            print(" === create user === :" +str(form.cleaned_data["username"]))
+            print("=== create user ===: " + str(form.cleaned_data["username"]))
             form.save()
             return redirect(reverse("system:finish_register"))
         return redirect(reverse("system:user_register"))
@@ -37,8 +37,9 @@ def userRegister(request):
 
 
 def userRegisterView(request):
-    return render_to_response("userRegisterView.html", RequestContext(request, {
-        "register_forms": RegisterForm(),
+    return render_to_response(
+        "userRegisterView.html", RequestContext(request, {
+            "register_forms": RegisterForm(),
         }))
 
 
