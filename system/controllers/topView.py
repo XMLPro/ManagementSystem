@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from system.models import Equipment, Reserved
 from django.template import RequestContext
+from django.core.urlresolvers import reverse
 
 
 class Button:
@@ -18,7 +19,8 @@ class Button:
 
 
 def create_borrow_button():
-    return Button("", "借")
+    # return Button("/system/manage/borrow/", "借")
+    return Button(reverse("system:manage-borrow"), "借")
 
 
 def create_reserve_button():
@@ -26,7 +28,7 @@ def create_reserve_button():
 
 
 def create_return_button():
-    return Button("", "返")
+    return Button(reverse("system:manage-return"), "返")
 
 
 def create_finish_button():

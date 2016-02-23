@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
   {% if log_list %}
-  <h1>備品の歴史</h1>
+  {% block pagetitle %}備品の歴史{% endblock %}
 
   <!-- test search form -->
   <form method="post" action="">
@@ -24,12 +24,18 @@
       <th>借りた人</th>
       <th>借りた物</th>
       <th>借りた日</th>
+      <th>返した日</th>
     </tr>
     {% for log in log_list %}
     <tr>
       <td>{{ log.user }}</td>
       <td>{{ log.equipment}}</td>
       <td>{{ log.borrowed_date }}</td>
+      {% if log.return_date %}
+        <td>{{ log.return_date }}</td>
+      {% else %}
+        <td>貸出中</td>
+      {% endif %}
     </tr>
     {% endfor %}
   </table>
