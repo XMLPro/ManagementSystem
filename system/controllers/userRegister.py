@@ -20,7 +20,7 @@ class RegisterForm(UserCreationForm):
         username = self.cleaned_data["username"]
         if email and CustomUser.objects.filter(
                 email=email).exclude(username=username).count():
-            raise forms.ValidationError("Email addresses must be unique.")
+            raise forms.ValidationError("同じメールアドレスが既に登録済みです。")
         return email
 
     def save(self, commit=True):
