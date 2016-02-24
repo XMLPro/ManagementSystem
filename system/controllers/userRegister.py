@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import BaseUserManager
 from django import forms
-from system.controllers.postFinishView import finish
 
 
 class RegisterForm(UserCreationForm):
