@@ -70,8 +70,7 @@ def create_button(equipment, username):
 def topView(request):
     ctxt = RequestContext(request, {})
     if 'keyword' in request.POST:
-        equipment_list = Equipment.objects.filter(
-                equipment_name__contains=request.POST["keyword"])
+        equipment_list = search(request.POST["keyword"])
     else:
         equipment_list = Equipment.objects.all()
     # equipmentにフィールド追加

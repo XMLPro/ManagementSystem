@@ -5,18 +5,14 @@
 <style type="text/css">
 </style>
 {% endblock %}
-{% block content %}
-  {% if log_list %}
   {% block pagetitle %}備品の歴史{% endblock %}
-
-  <!-- test search form -->
-  <form method="post" action="">
+{% block content %}
+  <form method="POST" action="/system/log/">
     {% csrf_token %}
-    <input type="text" placeholder="search">
-    <input type="submit" value="submit">
+    <input name="keyword" type="text" placeholder="search">
+    <input type="submit">
   </form><br>
-  <!-- end test search form -->
-
+  {% if log_list %}
   <!-- main content -->
 
   <table>
