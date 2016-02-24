@@ -7,9 +7,11 @@ from system.models import Reserved, Equipment
 def reservePost(request):
     if request.method == "POST":
         equipment = Equipment.objects.get(id=request.POST["equipment_id"])
-        reserve = Reserved(equipment=equipment, user=request.user)
-        reserve.save()
-        return finish("reserve")
+        if not Reserved.objects.filter(
+                equipment=equipment, user=request.user).exists():
+            reserve = Reserved(equipment=equipment, user=request.user)
+            reserve.save()
+            return finish("reserve")
     return redirect(reverse("system:top"))
 
 
