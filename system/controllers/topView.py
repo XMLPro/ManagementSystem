@@ -72,8 +72,8 @@ def topView(request):
     ctxt = RequestContext(request, {})
     keywords = ""
     if 'keywords' in request.POST:
-        keywords = search(request.POST["keywords"])
-        equipment_list = keywords
+        keywords = request.POST["keywords"]
+        equipment_list = search(keywords)
     else:
         equipment_list = Equipment.objects.all()
     # equipmentにフィールド追加
