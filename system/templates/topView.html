@@ -17,7 +17,7 @@ th{
 {% block content %}
 <form method="POST" action="/system/">
   {% csrf_token %}
-  <input name="keyword" type="text" placeholder="search">
+  <input name="keywords" type="text" placeholder="search" value="{{ keywords }}">
   <input type="submit">
 </form><br>
 {% if equipment_list %}
