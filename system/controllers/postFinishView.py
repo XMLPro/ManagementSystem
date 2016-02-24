@@ -21,6 +21,7 @@ def postFinishView(request):
             "vote": "投票",
             "request": "リクエスト",
             "delete": "削除",
+            "user_register": "ユーザー登録",
         }[request.GET["message"]]
     except KeyError:
         # 上のリストに無いものが送られてきた場合
