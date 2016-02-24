@@ -69,7 +69,11 @@ def create_button(equipment, username):
 
 def topView(request):
     ctxt = RequestContext(request, {})
-    equipment_list = Equipment.objects.all()
+    if 'keyword' in request.POST:
+        equipment_list = Equipment.objects.filter(
+                equipment_name__contains=request.POST["keyword"])
+    else:
+        equipment_list = Equipment.objects.all()
     # equipmentにフィールド追加
     # .reserved_num: 予約者人数
     # .button:       備品の貸出制御ボタン
