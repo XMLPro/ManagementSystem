@@ -13,14 +13,14 @@ th{
   }
 </style>
 {% endblock %}
+{% block pagetitle %}貸出備品一覧: {{ username }}{% endblock %}
 {% block content %}
-<form id="search_fm" method="POST" action="/system/">
+<form method="POST" action="/system/">
   {% csrf_token %}
-  <input id="keyword" name="keyword" type="text" placeholder="search">
-  <input id="search_btn" type="submit">
+  <input name="keyword" type="text" placeholder="search">
+  <input type="submit">
 </form><br>
 {% if equipment_list %}
-{% block pagetitle %}貸出備品一覧: {{ username }}{% endblock %}
 <!-- main content -->
 
 <table>
@@ -51,6 +51,4 @@ th{
 {% endif %}
 <!-- end main content -->
 
-{% endblock %}
-{% block moreScript %}
 {% endblock %}
