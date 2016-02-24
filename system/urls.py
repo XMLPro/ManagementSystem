@@ -5,6 +5,7 @@ from system.controllers import logView
 from system.controllers import requestView
 from system.controllers import borrowReturnPost, reservePost, postFinishView
 from system.controllers import userRegister
+from system.controllers import search
 
 urlpatterns = [
     url(r'^$', topView.topView, name='top'),
@@ -28,4 +29,5 @@ urlpatterns = [
         name='manage-cancel'),
 
     url(r'^manage/$', postFinishView.postFinishView, name='manage'),
+    url(r'^search/$', search.search, name='search'),
 ]
