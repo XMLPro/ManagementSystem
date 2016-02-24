@@ -16,15 +16,7 @@
 {% block content %}
   {% if equipment_list %}
   {% block pagetitle %}貸出備品一覧: {{ username }}{% endblock %}
-
-  <!-- test search form -->
-  <form method="post" action="/system/">
-    {% csrf_token %}
-    <input type="text" placeholder="search">
-    <input type="button" value="submit">
-  </form><br>
-  <!-- end test search form -->
-
+  {% include "search.html" %}
   <!-- main content -->
 
   <table>
@@ -55,4 +47,72 @@
   {% endif %}
   <!-- end main content -->
 
+{% endblock %}
+{% block moreScript %}
+<script>
+$("#search_btn").click(function() {
+  // 多重送信を防ぐため通信完了までボタンをdisableにする
+  var button = $(this);
+  button.attr("disabled", true);
+  // 通信実行
+  $.ajax({
+    type:"GET",                // method = "POST"
+    url: "/system/search/",        // POST送信先のURL
+    data: { keyword: $("#keyword").val()},  // JSONデータ本体
+    contentType: 'text/plain', // リクエストの Content-Type
+    dataType: "json",           // レスポンスをJSONとしてパースする
+    success: function(json_data) {   // 200 OK時
+      alert(json_data[0].fields.equipment_name);
+      $("#list").html("");
+      for(var i=0;i<5;i++){
+        $("#list").append(json_data[i].fields.equipment_name);
+        $("#list").append("<br>");
+      }
+    },
+    error: function() {         // HTTPエラー時
+      alert("Server Error. Pleasy try again later.");
+    },
+    complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+      button.attr("disabled", false);  // ボタンを再び enableにする
+    }
+  });
+});
+
+jQuery(document).ajaxSend(function(event, xhr, settings) {
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = jQuery.trim(cookies[i]);
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  function sameOrigin(url) {
+    // url could be relative or scheme relative or absolute
+    var host = document.location.host; // host + port
+    var protocol = document.location.protocol;
+    var sr_origin = '//' + host;
+    var origin = protocol + sr_origin;
+    // Allow absolute or scheme relative URLs to same origin
+    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+      (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+      // or any other URL that isn't scheme relative or absolute i.e relative.
+      !(/^(\/\/|http:|https:).*/.test(url));
+  }
+  function safeMethod(method) {
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  }
+
+  if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+  }
+});
+</script>
 {% endblock %}
