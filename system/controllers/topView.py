@@ -20,19 +20,19 @@ class Button:
 
 def create_borrow_button():
     # return Button("/system/manage/borrow/", "借")
-    return Button(reverse("system:manage-borrow"), "借")
+    return Button(reverse("system:manage-borrow"), "借用")
 
 
 def create_reserve_button():
-    return Button("", "予")
+    return Button(reverse("system:manage-reserve"), "予約")
 
 
 def create_return_button():
-    return Button(reverse("system:manage-return"), "返")
+    return Button(reverse("system:manage-return"), "返却")
 
 
 def create_finish_button():
-    return Button("", "済")
+    return Button(reverse("system:manage-cancel"), "取消")
 
 
 def create_button(equipment, username):
