@@ -1,6 +1,8 @@
 from django.shortcuts import render_to_response
 from system.models import Equipment, Reserved
 from django.template import RequestContext
+from django.core.urlresolvers import reverse
+from system.controllers.search import search
 
 
 class Button:
@@ -18,19 +20,20 @@ class Button:
 
 
 def create_borrow_button():
-    return Button("", "借")
+    # return Button("/system/manage/borrow/", "借")
+    return Button(reverse("system:manage-borrow"), "借用")
 
 
 def create_reserve_button():
-    return Button("", "予")
+    return Button(reverse("system:manage-reserve"), "予約")
 
 
 def create_return_button():
-    return Button("", "返")
+    return Button(reverse("system:manage-return"), "返却")
 
 
 def create_finish_button():
-    return Button("", "済")
+    return Button(reverse("system:manage-cancel"), "取消")
 
 
 def create_button(equipment, username):
@@ -67,7 +70,12 @@ def create_button(equipment, username):
 
 def topView(request):
     ctxt = RequestContext(request, {})
-    equipment_list = Equipment.objects.all()
+    keywords = ""
+    if 'keywords' in request.POST:
+        keywords = request.POST["keywords"]
+        equipment_list = search(keywords)
+    else:
+        equipment_list = Equipment.objects.all()
     # equipmentにフィールド追加
     # .reserved_num: 予約者人数
     # .button:       備品の貸出制御ボタン
@@ -79,4 +87,5 @@ def topView(request):
     return render_to_response('topView.html', {
         'equipment_list': equipment_list,
         'username': request.user,
+        'keywords': keywords,
     }, ctxt)
