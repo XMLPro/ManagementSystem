@@ -29,5 +29,4 @@ urlpatterns = [
         name='manage-cancel'),
 
     url(r'^manage/$', postFinishView.postFinishView, name='manage'),
-    url(r'^search/$', search.search, name='search'),
 ]
