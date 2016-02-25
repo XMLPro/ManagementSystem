@@ -3,56 +3,52 @@
 {% block title %}備品管理システム{% endblock %}
 {% block moreStyle %}
 <style type="text/css">
-  th{
-    padding: 5px;
-    margin: 5px;
-  }
+th{
+  padding: 5px;
+  margin: 5px;
+}
   td{
     padding: 3px;
     margin: 5px;
   }
 </style>
 {% endblock %}
+{% block pagetitle %}貸出備品一覧: {{ username }}{% endblock %}
 {% block content %}
-  {% if equipment_list %}
-  {% block pagetitle %}貸出備品一覧: {{ username }}{% endblock %}
+<form method="POST" action="/system/">
+  {% csrf_token %}
+  <input name="keywords" type="text" placeholder="search" value="{{ keywords }}">
+  <input type="submit">
+</form><br>
+{% if equipment_list %}
+<!-- main content -->
 
-  <!-- test search form -->
-  <form method="post" action="/system/">
-    {% csrf_token %}
-    <input type="text" placeholder="search">
-    <input type="button" value="submit">
-  </form><br>
-  <!-- end test search form -->
-
-  <!-- main content -->
-
-  <table>
-    <tr>
-      <th>貸出ボタン</th>
-      <th>名前</th>
-      <th>貸出回数</th>
-      <th>予約数</th>
-      <th>借りてる人</th>
-    </tr>
-    {% for equipment in equipment_list %}
-    <tr>
-      <td>
-        <form method="post" action="{{ equipment.button.url }}">
-          {% csrf_token %}
-          <button name="equipment_id" value="{{ equipment.id }}">{{ equipment.button }}</button>
-        </form>
-      </td>
-      <td>{{ equipment.equipment_name}}</td>
-      <td>{{ equipment.Lend_count }}</td>
-      <td>{{ equipment.reserved_num }}</td>
-      <td>{{ equipment.borrower }}</td>
-    </tr>
-    {% endfor %}
-  </table>
-  {% else %}
-    <p>no equipment_list</p>
-  {% endif %}
-  <!-- end main content -->
+<table>
+  <tr>
+    <th>貸出ボタン</th>
+    <th>名前</th>
+    <th>貸出回数</th>
+    <th>予約数</th>
+    <th>借りてる人</th>
+  </tr>
+  {% for equipment in equipment_list %}
+  <tr>
+    <td>
+      <form method="post" action="{{ equipment.button.url }}">
+        {% csrf_token %}
+        <button name="equipment_id" value="{{ equipment.id }}">{{ equipment.button }}</button>
+      </form>
+    </td>
+    <td>{{ equipment.equipment_name}}</td>
+    <td>{{ equipment.Lend_count }}</td>
+    <td>{{ equipment.reserved_num }}</td>
+    <td>{{ equipment.borrower }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>no equipment_list</p>
+{% endif %}
+<!-- end main content -->
 
 {% endblock %}
