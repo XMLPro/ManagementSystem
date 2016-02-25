@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from system.models import Equipment, Reserved
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
-from system.controllers.search import search
+from system.controllers.search import search_equipmant
 
 
 class Button:
@@ -71,9 +71,9 @@ def create_button(equipment, username):
 def topView(request):
     ctxt = RequestContext(request, {})
     keywords = ""
-    if 'keywords' in request.POST:
+    if 'keywords' in request.POST and request.POST["keywords"] != "":
         keywords = request.POST["keywords"]
-        equipment_list = search(keywords)
+        equipment_list = search_equipmant.search(keywords)
     else:
         equipment_list = Equipment.objects.all()
     # equipmentにフィールド追加
