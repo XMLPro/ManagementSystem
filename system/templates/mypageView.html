@@ -58,13 +58,15 @@
             <input type="submit" value="予約取り消し">
           </form>
         </td>
-        <td>
-          <form action="{% url 'system:manage-borrow' %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="equipment_id" value="{{ reserved_item.equipment.id }}">
-            <input type="submit" value="借りる">
-          </form>
-        </td>
+        {% if reserved_item.can_borrow %}
+          <td>
+            <form action="{% url 'system:manage-borrow' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="equipment_id" value="{{ reserved_item.equipment.id }}">
+              <input type="submit" value="借りる">
+            </form>
+          </td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>
