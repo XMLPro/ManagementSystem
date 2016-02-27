@@ -2,14 +2,7 @@ from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from system.controllers.postFinishView import finish
 from system.models import Reserved, Equipment
-from django.http import Http404
-
-
-def reverse_or_404(default_name, name=None):
-    try:
-        return reverse(name if name else default_name)
-    except:
-        raise Http404
+from system.controllers.utils import reverse_or_404
 
 
 def reservePost(request):
