@@ -19,13 +19,13 @@
     </form>
     </tr>
     END sample -->
-    <form action="" method="post">
+    <form action="{% url 'system:manage-return' %}" method="post">
       {% csrf_token %}
       {% for borrower_item in borrower_list%}
       <tr>
         <td>{{ borrower_item }}</td>
         <td>{{ borrower_item.num }}</td>
-        <td><button value="{{ my_borrow.equipment.id }}">返却</button></td>
+        <td><button name="equipment_id" value="{{ borrower_item.id }}">返却</button></td>
       </tr>
       {% endfor %}
     </form>
