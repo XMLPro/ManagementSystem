@@ -50,13 +50,21 @@
     END sample -->
     {% for reserved_item in reserved_list %}
     <tr>
-      <form action="" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
         <td>{{ reserved_item.equipment.equipment_name }}</td>
-        <td><input type="submit" value="予約取り消し"></td>
-        <td><input type="submit" value="借りる"></td>
-      </form>
+        <td>
+          <form action="{% url 'system:manage-cancel' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="reserved_id" value="{{ reserved_item.id }}">
+            <input type="submit" value="予約取り消し">
+          </form>
+        </td>
+        <td>
+          <form action="{% url 'system:manage-borrow' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="equipment_id" value="{{ reserved_item.equipment.id }}">
+            <input type="submit" value="借りる">
+          </form>
+        </td>
     </tr>
     {% endfor %}
 </table>
