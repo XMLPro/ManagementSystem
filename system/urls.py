@@ -12,8 +12,8 @@ urlpatterns = [
         name='user_register'),
     url(r'^user_register/finish$', userRegister.finishUserRegisterView,
         name='finish_register'),
-    url(r'^mypage/$', mypageView.mypageView),
-    url(r'^log/$', logView.logView),
+    url(r'^mypage/$', mypageView.mypageView, name='mypage'),
+    url(r'^log/$', logView.logView, name='log'),
     url(r'^request/$', requestView.requestView, name='requestView'),
     url(r'^vote/$', requestView.vote, name='vote'),
 
