@@ -19,13 +19,13 @@
     </form>
     </tr>
     END sample -->
-    <form action="" method="post">
+    <form action="{% url 'system:manage-return' %}?backname=system:mypage&backtitle=Myページ" method="post">
       {% csrf_token %}
       {% for borrower_item in borrower_list%}
       <tr>
         <td>{{ borrower_item }}</td>
         <td>{{ borrower_item.num }}</td>
-        <td><button value="{{ my_borrow.equipment.id }}">返却</button></td>
+        <td><button name="equipment_id" value="{{ borrower_item.id }}">返却</button></td>
       </tr>
       {% endfor %}
     </form>
@@ -50,13 +50,23 @@
     END sample -->
     {% for reserved_item in reserved_list %}
     <tr>
-      <form action="" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
         <td>{{ reserved_item.equipment.equipment_name }}</td>
-        <td><input type="submit" value="予約取り消し"></td>
-        <td><input type="submit" value="借りる"></td>
-      </form>
+        <td>
+          <form action="{% url 'system:manage-cancel' %}?backname=system:mypage&backtitle=Myページ" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="reserved_id" value="{{ reserved_item.id }}">
+            <input type="submit" value="予約取り消し">
+          </form>
+        </td>
+        {% if reserved_item.can_borrow %}
+          <td>
+            <form action="{% url 'system:manage-borrow' %}?backname=system:mypage&backtitle=Myページ" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="equipment_id" value="{{ reserved_item.equipment.id }}">
+              <input type="submit" value="借りる">
+            </form>
+          </td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>
