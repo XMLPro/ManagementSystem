@@ -19,7 +19,7 @@
     </form>
     </tr>
     END sample -->
-    <form action="{% url 'system:manage-return' %}" method="post">
+    <form action="{% url 'system:manage-return' %}?backname=system:mypage&backtitle=Myページ" method="post">
       {% csrf_token %}
       {% for borrower_item in borrower_list%}
       <tr>
@@ -52,7 +52,7 @@
     <tr>
         <td>{{ reserved_item.equipment.equipment_name }}</td>
         <td>
-          <form action="{% url 'system:manage-cancel' %}" method="post">
+          <form action="{% url 'system:manage-cancel' %}?backname=system:mypage&backtitle=Myページ" method="post">
             {% csrf_token %}
             <input type="hidden" name="reserved_id" value="{{ reserved_item.id }}">
             <input type="submit" value="予約取り消し">
@@ -60,7 +60,7 @@
         </td>
         {% if reserved_item.can_borrow %}
           <td>
-            <form action="{% url 'system:manage-borrow' %}" method="post">
+            <form action="{% url 'system:manage-borrow' %}?backname=system:mypage&backtitle=Myページ" method="post">
               {% csrf_token %}
               <input type="hidden" name="equipment_id" value="{{ reserved_item.equipment.id }}">
               <input type="submit" value="借りる">
