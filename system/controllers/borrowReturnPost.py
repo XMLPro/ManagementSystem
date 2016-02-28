@@ -75,7 +75,8 @@ def returnPost(request):
         # 複数の人が同じequipmentを借りている状態の場合
 
         # 後ろから一件取得　[-1:]が使えませんでした
-        log = Log.objects.filter(equipment=equipment, user=borrower, return_date=None)[::-1][0]
+        log = Log.objects.filter(
+                equipment=equipment, user=borrower, return_date=None)[::-1][0]
     except Log.DoesNotExist:
         # 貸したはずのequipmentがLogに無い場合
 

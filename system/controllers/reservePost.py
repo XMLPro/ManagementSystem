@@ -31,7 +31,8 @@ def cancelPost(request):
             reserved = Reserved.objects.get(id=reserved_id)
         else:
             equipment = Equipment.objects.get(id=request.POST["equipment_id"])
-            reserved = Reserved.objects.get(equipment=equipment, user=request.user)
+            reserved = Reserved.objects.get(
+                equipment=equipment, user=request.user)
         if reserved:
             reserved.delete()
         return finish("cancel_reserve", backname, backtitle)

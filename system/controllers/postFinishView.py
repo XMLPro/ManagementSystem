@@ -6,8 +6,8 @@ from system.controllers.utils import reverse_or_404
 
 
 def resolve_name_and_title(name, title):
-    default_urlname="system:top"
-    default_title="トップページ"
+    default_urlname = "system:top"
+    default_title = "トップページ"
 
     url = reverse_or_404(default_urlname, name)
     if not name and not title:
