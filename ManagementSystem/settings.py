@@ -38,6 +38,12 @@ LOGIN_EXEMPT_URLS = (
     r'^system/user_register/',
 )
 
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "system/static"),
+)
+
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -62,6 +68,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'ManagementSystem.urls'
+
 
 TEMPLATES = [
     {
@@ -114,5 +121,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-            os.path.join(BASE_DIR, "static"),
+            os.path.join(BASE_DIR, "system/../system/static"),
                 ]
