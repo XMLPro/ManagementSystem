@@ -3,6 +3,7 @@ from django.utils import timezone
 from system.models import Equipment, Reserved, Log
 import datetime
 from system.controllers.postFinishView import finish
+from system.controllers.utils import reverse_or_404
 
 
 def borrowPost(request):
@@ -11,11 +12,15 @@ def borrowPost(request):
     # 新しくlog作成、既存のlogがあった場合の処理(不正データ)
     # 予約順番の次が自分だった場合のreserved削除
 
+    # リダイレクト先の受け取り
+    backname = request.GET.get("backname")
+    backtitle = request.GET.get("backtitle")
+
     try:
         equipment = Equipment.objects.get(id=request.POST["equipment_id"])
     except:
         # postにequipmentが入っていなかった場合
-        return redirect("system:top")
+        return redirect(reverse_or_404("system:top", backname))
 
     # [ equipmentのデータを処理 ]
     equipment.borrower = request.user
@@ -40,7 +45,7 @@ def borrowPost(request):
             reserved.delete()
     except IndexError:
         pass
-    return finish("borrow")
+    return finish("borrow", backname, backtitle)
 
 
 def returnPost(request):
@@ -48,11 +53,15 @@ def returnPost(request):
     # equipmentのborrowerを空にする
     # logに返却日を記載
 
+    # リダイレクト先の受け取り
+    backname = request.GET.get("backname")
+    backtitle = request.GET.get("backtitle")
+
     try:
         equipment = Equipment.objects.get(id=request.POST["equipment_id"])
     except:
         # postにequipmentが入っていなかった場合
-        return redirect("system:top")
+        return redirect(reverse_or_404("system:top", backname))
 
     # [ equipmentのborrowerを空に ]
     borrower = equipment.borrower
@@ -66,7 +75,8 @@ def returnPost(request):
         # 複数の人が同じequipmentを借りている状態の場合
 
         # 後ろから一件取得　[-1:]が使えませんでした
-        log = Log.objects.filter(equipment=equipment, user=borrower, return_date=None)[::-1][0]
+        log = Log.objects.filter(
+                equipment=equipment, user=borrower, return_date=None)[::-1][0]
     except Log.DoesNotExist:
         # 貸したはずのequipmentがLogに無い場合
 
@@ -76,4 +86,4 @@ def returnPost(request):
         log.return_date = timezone.now()
         log.save()
 
-    return finish("return")
+    return finish("return", backname, backtitle)

@@ -38,12 +38,6 @@ LOGIN_EXEMPT_URLS = (
     r'^system/user_register/',
 )
 
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "system/static"),
-)
-
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -69,6 +63,13 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'ManagementSystem.urls'
 
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "system/static"),
+)
+
+
 
 TEMPLATES = [
     {
@@ -81,6 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
             ],
         },
     },

@@ -7,6 +7,7 @@ from system.controllers.search import search_equipmant
 
 class Button:
     """ topView.htmlで使用されている、備品の貸出制御ボタン """
+
     def __init__(self, url, name):
         self.url = url
         self.name = name
@@ -69,7 +70,6 @@ def create_button(equipment, username):
 
 
 def topView(request):
-    ctxt = RequestContext(request, {})
     keywords = ""
     if 'keywords' in request.POST and request.POST["keywords"] != "":
         keywords = request.POST["keywords"]
@@ -83,9 +83,7 @@ def topView(request):
     for equipment in equipment_list:
         equipment.reserved_num = res_objs.filter(equipment=equipment).count()
         equipment.button = create_button(equipment, request.user)
-
-    return render_to_response('topView.html', {
-        'equipment_list': equipment_list,
-        'username': request.user,
-        'keywords': keywords,
-    }, ctxt)
+    ctxt = RequestContext(request, {'equipment_list': equipment_list,
+                                    'username': request.user,
+                                    'keywords': keywords, })
+    return render_to_response('topView.html',  ctxt)
