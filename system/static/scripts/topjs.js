@@ -13,18 +13,18 @@ $(function () {
         });
 
         $(".tag-submit").on("click", function () {
-            var t_input = $('.tag-input');
+            var t_input = $(this).parents('.input-group').find('.tag-input');
             var arr = t_input.val().split(/\s+/);
             for (var i = 0; i < arr.length; i++) {
                 $(this).parents('li').children('.list-group-item-text').append("<span class='label label-primary'>" + arr[i] + "</span>");
             }
             $.ajax({
-                url: $('#ajax_post').prop('action'),
+                url: $(this).parents('.tag-edit').find('.ajax_post').prop('action'),
                 type: "POST",
                 dataType: 'json',
                 data: {
                     'text': t_input.val(),
-                    'equipment_id': $('.equipment_id').val()
+                    'equipment_id': $(this).parents('.input-group').find('.equipment_id').val()
                 }
             })
         });

@@ -31,7 +31,7 @@
                     <a class="edit-show">タグ編集</a>
 
                     <div class="tag-edit">
-                        <form id="ajax_post" action="{% url 'system:tag_add' %}">
+                        <form class="ajax_post" action="{% url 'system:tag_add' %}">
                             {% csrf_token %}
                             <div class="input-group">
                                 <input type="text" name="tag-keywords" class="form-control tag-input"
