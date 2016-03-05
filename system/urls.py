@@ -28,4 +28,5 @@ urlpatterns = [
         name='manage-cancel'),
 
     url(r'^manage/$', postFinishView.postFinishView, name='manage'),
+    url(r'^tag_add/$', topView.ajax_tag_add, name='tag_add'),
 ]

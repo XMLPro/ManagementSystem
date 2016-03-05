@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block title %}備品管理システム{% endblock %}
-{% block pagetitle %}リクエスト{% endblock %}
 {% block content %}
     {% if request_list %}
         <form action="{% url 'system:vote' %}" method="post">

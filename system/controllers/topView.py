@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response
-from system.models import Equipment, Reserved
+from system.models import Equipment, Reserved, Tag
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from system.controllers.search import search_equipmant
@@ -83,7 +83,21 @@ def topView(request):
     for equipment in equipment_list:
         equipment.reserved_num = res_objs.filter(equipment=equipment).count()
         equipment.button = create_button(equipment, request.user)
+        setattr(equipment, 'tags', Tag.objects.filter(equipment=equipment.id))
+
     ctxt = RequestContext(request, {'equipment_list': equipment_list,
                                     'username': request.user,
                                     'keywords': keywords, })
-    return render_to_response('topView.html',  ctxt)
+    return render_to_response('topView.html', ctxt)
+
+
+def ajax_tag_add(request):
+    tags = request.POST['text'].split()
+    for i in tags:
+        print(i)
+        try:
+            equipment = Equipment.objects.get(pk=request.POST['equipment_id'])
+            tag = Tag(equipment=equipment, tag=i)
+            tag.save()
+        except:
+            raise

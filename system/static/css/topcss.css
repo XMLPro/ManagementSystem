@@ -1,0 +1,20 @@
+.list_group {
+    width: 70%;
+    margin: 0 auto;
+    list-style: none;
+}
+.tag-edit{
+    display: none;
+}
+
+
+.panel{
+    margin: 0 auto;
+    width: 70%;
+    height: 90px;
+}
+
+.panel-default{
+    margin-bottom: 30px;
+}
+
