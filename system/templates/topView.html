@@ -43,11 +43,18 @@
                             </div>
                         </form>
                     </div>
-                    <p class="list-group-item-text">
+
+                    <div class="list-group-item-text">
+                        <form action="{% url 'system:tag_remove' %}" class="ajax_remove">
                         {% for tag in equipment.tags %}
-                            <span class="label label-primary">{{ tag }}</span>
+                            <span class="tag-item">
+                                <span class="label label-primary">{{ tag }}</span>
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </span>
+                            <input type="hidden" name="tag_id" class="tag_id" value="{{ tag.id }}">
                         {% endfor %}
-                    </p>
+                        </form>
+                    </div>
 
                     <form method="post" action="{{ equipment.button.url }}">
                         {% csrf_token %}

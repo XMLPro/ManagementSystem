@@ -87,17 +87,21 @@ def topView(request):
 
     ctxt = RequestContext(request, {'equipment_list': equipment_list,
                                     'username': request.user,
-                                    'keywords': keywords, })
+                                    'keywords': keywords,
+                                    })
     return render_to_response('topView.html', ctxt)
 
 
 def ajax_tag_add(request):
     tags = request.POST['text'].split()
     for i in tags:
-        print(i)
         try:
             equipment = Equipment.objects.get(pk=request.POST['equipment_id'])
             tag = Tag(equipment=equipment, tag=i)
             tag.save()
         except:
             raise
+
+
+def ajax_tag_remove(request):
+    Tag.objects.get(pk=request.POST['tag_id']).delete()

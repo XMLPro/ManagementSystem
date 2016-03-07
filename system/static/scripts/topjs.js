@@ -10,13 +10,38 @@ $(function () {
                 $(this).text("タグ編集")
             }
             $(this).parents().children(".tag-edit").toggle(200);
+            $(this).parents("li").find(".glyphicon-remove").toggle();
         });
 
+        //タグの削除部分
+        $(".glyphicon-remove").on("click", function () {
+            var remove_form = $(this).parents('.ajax_remove');
+            $.ajax({
+                url: remove_form.prop('action'),
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    'tag_id': remove_form.children(".tag_id").val()
+                }
+            });
+            $(this).parents('.tag-item').remove();
+
+        });
+        $(".ajax_post").submit(function (event) {
+            event.preventDefault();
+            $(this).find(".tag-submit").trigger("click");
+        });
+
+        //タグの追加に関しての部分
         $(".tag-submit").on("click", function () {
             var t_input = $(this).parents('.input-group').find('.tag-input');
             var arr = t_input.val().split(/\s+/);
             for (var i = 0; i < arr.length; i++) {
-                $(this).parents('li').children('.list-group-item-text').append("<span class='label label-primary'>" + arr[i] + "</span>");
+                $(this).parents('li').find('.ajax_remove').append("<span class='tag-item'>" +
+                    "<span class='label label-primary'>" + arr[i] + "</span>" +
+                    "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>" +
+                    "</span>");
+                $(this).parents('li').find('.glyphicon-remove').show();
             }
             $.ajax({
                 url: $(this).parents('.tag-edit').find('.ajax_post').prop('action'),
@@ -28,6 +53,7 @@ $(function () {
                 }
             })
         });
+
 
         jQuery(document).ajaxSend(function (event, xhr, settings) {
             function getCookie(name) {
