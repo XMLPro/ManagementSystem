@@ -26,7 +26,7 @@ class RegisterForm(UserCreationForm):
         print(" === save === ")
         user = super(RegisterForm, self).save(commit=False)
         user.email = BaseUserManager.normalize_email(
-                self.cleaned_data["email"])
+            self.cleaned_data["email"])
         if commit:
             user.save()
         return user
@@ -52,4 +52,4 @@ def userRegisterView(request):
 def finishUserRegisterView(request):
     return render_to_response("postFinishView.html", RequestContext(request, {
         "message": "ユーザー登録",
-        }))
+    }))

@@ -14,4 +14,4 @@ def logView(request):
     return render_to_response("logView.html", RequestContext(request, {
         "log_list": log_list,
         "keywords": keywords,
-            }))
+    }))

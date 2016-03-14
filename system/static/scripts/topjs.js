@@ -14,14 +14,14 @@ $(function () {
         });
 
         //タグの削除部分
-        $(".glyphicon-remove").on("click", function () {
+        $(".tag-item-group").on("click", ".glyphicon-remove", function () {
             var remove_form = $(this).parents('.ajax_remove');
             $.ajax({
                 url: remove_form.prop('action'),
                 type: "POST",
                 dataType: 'json',
                 data: {
-                    'tag_id': remove_form.children(".tag_id").val()
+                    'tag_id': $(this).parent().next(".tag_id").val()
                 }
             });
             $(this).parents('.tag-item').remove();
@@ -34,24 +34,32 @@ $(function () {
 
         //タグの追加に関しての部分
         $(".tag-submit").on("click", function () {
-            var t_input = $(this).parents('.input-group').find('.tag-input');
+            var event_tag = $(this);
+            var t_input = event_tag.parents('.input-group').find('.tag-input');
             var arr = t_input.val().split(/\s+/);
-            for (var i = 0; i < arr.length; i++) {
-                $(this).parents('li').find('.ajax_remove').append("<span class='tag-item'>" +
-                    "<span class='label label-primary'>" + arr[i] + "</span>" +
-                    "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>" +
-                    "</span>");
-                $(this).parents('li').find('.glyphicon-remove').show();
-            }
             $.ajax({
-                url: $(this).parents('.tag-edit').find('.ajax_post').prop('action'),
+                url: event_tag.parents('.tag-edit').find('.ajax_post').prop('action'),
                 type: "POST",
                 dataType: 'json',
                 data: {
                     'text': t_input.val(),
-                    'equipment_id': $(this).parents('.input-group').find('.equipment_id').val()
+                    'equipment_id': event_tag.parents('.input-group').find('.equipment_id').val()
+                },
+                'success': function (response) {
+                    console.log(response.tags_id);
+                    console.log(response.tags_id[0]);
+                    for (var i = 0; i < arr.length; i++) {
+                        event_tag.parents('li').find('.tag-item-group').append(
+                            "<span class='tag-item'>" +
+                            "<span class='label label-primary'>" + arr[i] + "</span>" +
+                            "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>" +
+                            "</span>" +
+                            "<input type='hidden' name='tag_id' class='tag_id' value=" + response.tags_id[i] + ">"
+                        );
+                        event_tag.parents('li').find('.glyphicon-remove').show();
+                    }
                 }
-            })
+            });
         });
 
 

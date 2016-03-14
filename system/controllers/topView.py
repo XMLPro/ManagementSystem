@@ -1,3 +1,5 @@
+import json
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from system.models import Equipment, Reserved, Tag
 from django.template import RequestContext
@@ -94,13 +96,17 @@ def topView(request):
 
 def ajax_tag_add(request):
     tags = request.POST['text'].split()
+    tags_id = []
     for i in tags:
         try:
             equipment = Equipment.objects.get(pk=request.POST['equipment_id'])
             tag = Tag(equipment=equipment, tag=i)
             tag.save()
+            tags_id.append(tag.pk)
         except:
             raise
+    response = json.dumps({'tags_id': tags_id})
+    return HttpResponse(response, content_type="application/json")
 
 
 def ajax_tag_remove(request):
