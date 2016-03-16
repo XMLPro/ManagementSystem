@@ -76,7 +76,7 @@ def returnPost(request):
 
         # 後ろから一件取得　[-1:]が使えませんでした
         log = Log.objects.filter(
-                equipment=equipment, user=borrower, return_date=None)[::-1][0]
+            equipment=equipment, user=borrower, return_date=None)[::-1][0]
     except Log.DoesNotExist:
         # 貸したはずのequipmentがLogに無い場合
 
