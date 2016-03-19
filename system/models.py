@@ -13,8 +13,14 @@ class Equipment(models.Model):
     borrower = models.ForeignKey(CustomUser, null=True, blank=True)
     borrowed_date = models.DateField(auto_now=True)
     Lend_count = models.IntegerField(default=0)
+
     author = models.CharField(max_length=50)
     company = models.CharField(max_length=50)
+    price = models.IntegerField()
+    # information = models.CharField(max_length=10000)
+    product_code = models.IntegerField()
+    product_url = models.CharField(max_length=200)
+    image_url = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.equipment_name
