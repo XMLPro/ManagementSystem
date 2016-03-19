@@ -13,7 +13,7 @@ class Equipment(models.Model):
     borrower = models.ForeignKey(CustomUser, null=True, blank=True)
     borrowed_date = models.DateField(auto_now=True)
     Lend_count = models.IntegerField(default=0)
-    creator = models.CharField(max_length=50)
+    author = models.CharField(max_length=50)
     company = models.CharField(max_length=50)
 
     def __str__(self):
