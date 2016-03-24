@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TagManagement',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, primary_key=True, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, serialize=False,
+                                        primary_key=True, verbose_name='ID')),
                 ('equipment', models.ForeignKey(to='system.Equipment')),
             ],
         ),

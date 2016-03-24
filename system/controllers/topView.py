@@ -106,7 +106,8 @@ def ajax_tag_add(request):
         try:
             equipment = Equipment.objects.get(pk=request.POST['equipment_id'])
             if Tag.objects.filter(tag_name=i).exists():
-                tag_management = TagManagement(equipment=equipment, tag=Tag.objects.get(tag_name=i))
+                tag_management = TagManagement(equipment=equipment,
+                                               tag=Tag.objects.get(tag_name=i))
                 tag_management.save()
                 tags_id.append(tag_management.id)
             else:
