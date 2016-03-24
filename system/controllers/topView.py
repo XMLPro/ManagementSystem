@@ -1,7 +1,7 @@
 import json
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from system.models import Equipment, Reserved, Tag
+from system.models import Equipment, Reserved, Tag, TagManagement
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from system.controllers.search import search_equipmant
@@ -85,7 +85,12 @@ def topView(request):
     for equipment in equipment_list:
         equipment.reserved_num = res_objs.filter(equipment=equipment).count()
         equipment.button = create_button(equipment, request.user)
-        setattr(equipment, 'tags', Tag.objects.filter(equipment=equipment.id))
+        relation = TagManagement.objects.filter(equipment=equipment.id)
+        tags = []
+        for t in relation:
+            setattr(t.tag, 'relation_id', t.id)
+            tags.append(t.tag)
+        setattr(equipment, 'tags', tags)
 
     ctxt = RequestContext(request, {'equipment_list': equipment_list,
                                     'username': request.user,
@@ -100,9 +105,16 @@ def ajax_tag_add(request):
     for i in tags:
         try:
             equipment = Equipment.objects.get(pk=request.POST['equipment_id'])
-            tag = Tag(equipment=equipment, tag=i)
-            tag.save()
-            tags_id.append(tag.pk)
+            if Tag.objects.filter(tag_name=i).exists():
+                tag_management = TagManagement(equipment=equipment, tag=Tag.objects.get(tag_name=i))
+                tag_management.save()
+                tags_id.append(tag_management.id)
+            else:
+                tag = Tag(tag_name=i)
+                tag.save()
+                tag_management = TagManagement(equipment=equipment, tag=tag)
+                tag_management.save()
+                tags_id.append(tag_management.id)
         except:
             raise
     response = json.dumps({'tags_id': tags_id})
@@ -110,4 +122,8 @@ def ajax_tag_add(request):
 
 
 def ajax_tag_remove(request):
-    Tag.objects.get(pk=request.POST['tag_id']).delete()
+    TagManagement.objects.get(pk=request.POST['tag_id']).delete()
+    tags = Tag.objects.all()
+    for t in tags:
+        if TagManagement.objects.filter(tag=t).exists() is not True:
+            t.delete()
