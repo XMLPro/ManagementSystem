@@ -76,3 +76,19 @@ class Log(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+
+# [タグ用のテーブル]
+# [id, タグ名]
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return str(self.tag_name)
+
+
+# [タグと備品の紐付け用のテーブル]
+# 備品名(備品id(外部キー)), タグ名
+class TagManagement(models.Model):
+    equipment = models.ForeignKey(Equipment)
+    tag = models.ForeignKey(Tag)

@@ -14,6 +14,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'^system/', include('system.urls', namespace='system')),
@@ -23,3 +24,4 @@ urlpatterns = [
     url(r'^logout/$', 'django.contrib.auth.views.logout',
         {'template_name': 'logout.html'}),
 ]
+urlpatterns += staticfiles_urlpatterns()

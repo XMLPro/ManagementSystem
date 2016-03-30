@@ -1,5 +1,7 @@
+import json
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from system.models import Equipment, Reserved
+from system.models import Equipment, Reserved, Tag, TagManagement
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from system.controllers.search import search_equipmant
@@ -7,6 +9,7 @@ from system.controllers.search import search_equipmant
 
 class Button:
     """ topView.htmlで使用されている、備品の貸出制御ボタン """
+
     def __init__(self, url, name):
         self.url = url
         self.name = name
@@ -69,7 +72,6 @@ def create_button(equipment, username):
 
 
 def topView(request):
-    ctxt = RequestContext(request, {})
     keywords = ""
     if 'keywords' in request.POST and request.POST["keywords"] != "":
         keywords = request.POST["keywords"]
@@ -83,9 +85,46 @@ def topView(request):
     for equipment in equipment_list:
         equipment.reserved_num = res_objs.filter(equipment=equipment).count()
         equipment.button = create_button(equipment, request.user)
+        relation = TagManagement.objects.filter(equipment=equipment.id)
+        tags = []
+        for t in relation:
+            setattr(t.tag, 'relation_id', t.id)
+            tags.append(t.tag)
+        setattr(equipment, 'tags', tags)
 
-    return render_to_response('topView.html', {
-        'equipment_list': equipment_list,
-        'username': request.user,
-        'keywords': keywords,
-    }, ctxt)
+    ctxt = RequestContext(request, {'equipment_list': equipment_list,
+                                    'username': request.user,
+                                    'keywords': keywords,
+                                    })
+    return render_to_response('topView.html', ctxt)
+
+
+def ajax_tag_add(request):
+    tags = request.POST['text'].split()
+    tags_id = []
+    for i in tags:
+        try:
+            equipment = Equipment.objects.get(pk=request.POST['equipment_id'])
+            if Tag.objects.filter(tag_name=i).exists():
+                tag_management = TagManagement(equipment=equipment,
+                                               tag=Tag.objects.get(tag_name=i))
+                tag_management.save()
+                tags_id.append(tag_management.id)
+            else:
+                tag = Tag(tag_name=i)
+                tag.save()
+                tag_management = TagManagement(equipment=equipment, tag=tag)
+                tag_management.save()
+                tags_id.append(tag_management.id)
+        except:
+            raise
+    response = json.dumps({'tags_id': tags_id})
+    return HttpResponse(response, content_type="application/json")
+
+
+def ajax_tag_remove(request):
+    TagManagement.objects.get(pk=request.POST['tag_id']).delete()
+    tags = Tag.objects.all()
+    for t in tags:
+        if TagManagement.objects.filter(tag=t).exists() is not True:
+            t.delete()
