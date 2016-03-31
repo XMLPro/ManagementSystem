@@ -17,7 +17,7 @@ class Equipment(models.Model):
     author = models.CharField(max_length=50)
     company = models.CharField(max_length=50)
     price = models.IntegerField()
-    product_code = models.IntegerField()
+    product_code = models.CharField(max_length=50)
     product_url = models.CharField(max_length=200)
     image_url = models.CharField(max_length=200, null=True, blank=True)
 
