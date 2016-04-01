@@ -21,7 +21,8 @@ class Rakuten():
                 applicationId=self.__APPLICATION_ID
                 )
         for i in query:
-            queryUrl += "&{key}={value}".format(key=i, value=query[i])
+            if query[i]:
+                queryUrl += "&{key}={value}".format(key=i, value=query[i])
         return queryUrl
 
     def setQuery(self, **query):
