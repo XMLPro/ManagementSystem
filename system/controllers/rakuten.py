@@ -6,6 +6,10 @@ from system.models import Equipment
 
 
 class Rakuten():
+    """このクラスは、RakutenBooks, RakutenIchibaのクラスの親クラスです。
+
+    楽天apiを使用する際はそちらを使用してください。"""
+
     __APPLICATION_ID = "1011546524580691339"
     searchResult = None
 
@@ -37,6 +41,12 @@ class Rakuten():
 
 
 class Item():
+    """このクラスは、楽天apiの検索結果からgetItemsで取得出来ます。
+
+    Equipment作成時は、このクラスを使用します。
+    createEquipment()でEquipmentモデルを取得出来るので、それに対しsave()を実行してください。
+    """
+
     def __init__(self, item):
         self.item = item
 
@@ -56,6 +66,14 @@ class Item():
 
 
 class RakutenBooks(Rakuten):
+    """このクラスは、楽天ブックス書籍検索apiを使うためのクラスです。
+
+    以下、簡単な使用法です。
+    raku = RakutenBooks(title="java") のようにクエリを指定します。
+    raku.search() ここで楽天apiにリクエストを送信します。
+    raku.getItems() Itemオブジェクトが配列で渡されます。
+    """
+
     _url = "https://app.rakuten.co.jp/services/api/BooksBook/Search/20130522"
 
     @staticmethod
@@ -67,6 +85,14 @@ class RakutenBooks(Rakuten):
 
 
 class RakutenIchiba(Rakuten):
+    """このクラスは、楽天商品検索apiを使うためのクラスです。
+
+    以下、簡単な使用法です。
+    raku = RakutenBooks(keyword="java") のようにクエリを指定します。
+    raku.search() ここで楽天apiにリクエストを送信します。
+    raku.getItems() Itemオブジェクトが配列で渡されます。
+    """
+
     _url = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20140222"
 
     @staticmethod
@@ -75,3 +101,24 @@ class RakutenIchiba(Rakuten):
         rakuten.search()
         items = rakuten.getItems()
         return items[0] if items else None
+
+
+def sample1():
+    # equipmentモデル適当作成
+    raku = RakutenBooks(title="java")
+    raku.search()
+    items = raku.getItems()
+    for item in items:
+        print(item.get("title"))
+        item.createEquipment().save()
+
+    print(" - - - - - - - - - - ")
+
+
+def sample2():
+    # isbnからequipmentモデル作成
+    item = RakutenBooks.getItem(9784774171302)
+    print(item.get("title"), item.get("author"), item.get("publisherName"))
+    item.createEquipment().save()
+
+    print(" - - - - - - - - - - ")
