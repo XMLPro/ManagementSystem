@@ -1,5 +1,4 @@
 from django.shortcuts import render_to_response
-from system.models import Equipment
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from system.controllers.rakuten import RakutenBooks
