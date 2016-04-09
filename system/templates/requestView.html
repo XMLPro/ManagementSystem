@@ -9,7 +9,7 @@
                 <tr>
                     <th></th>
                     <th>備品名</th>
-                    <th>AmazonURL</th>
+                    <th>楽天URL</th>
                 </tr>
                 {% for request_item in request_list %}
                     <tr>
@@ -32,15 +32,15 @@
     {% else %}
         <p>No data</p>
     {% endif %}
-    <h3>新規追加</h3>
+    <h3>リクエストの追加</h3>
 
     <form method="post">
         <p>
-            <label for="amazon_url">AmazonURL: <input type="text" required></label>
+            <label for="rakuten_url">楽天URL: <input name="url" type="text" required></label>
         </p>
 
         <p>
-            <label for="speak">一言: <input type="text"></label>
+            <label for="speak">一言: <input name="comment" type="text"></label>
         </p>
     </form>
     現在この機能は動いていません。
