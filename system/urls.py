@@ -5,6 +5,7 @@ from system.controllers import logView
 from system.controllers import requestView
 from system.controllers import borrowReturnPost, reservePost, postFinishView
 from system.controllers import userRegister
+from system.controllers import addEquipmentView
 
 urlpatterns = [
     url(r'^$', topView.topView, name='top'),
@@ -31,4 +32,6 @@ urlpatterns = [
     url(r'^tag_add/$', topView.ajax_tag_add, name='tag_add'),
     url(r'^tag_remove/$', topView.ajax_tag_remove, name='tag_remove'),
 
+    url(r'^add_equipment/$', addEquipmentView.addEquipmentView,
+        name="addEquipment"),
 ]

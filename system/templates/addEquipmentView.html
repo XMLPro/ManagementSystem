@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}備品追加{% endblock %}
+
+{% block moreStyle%}
+<style type="text/css">
+  .equipment{
+    border: solid;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<p>適当で大丈夫です。</p>
+<form action="{% url 'system:addEquipment' %}" method="GET">
+  <input type="text" name="keyword" placeholder="search">
+  <input type="text" name="author" placeholder="author">
+  <input type="text" name="publisher" placeholder="publisher">
+  <input type="isbn" name="isbn" placeholder="isbn">
+  <input type="submit">
+</form>
+{% for equipment in items %}
+  <ul class="equipment">
+    <li>{{ equipment.equipment_name }}</li>
+    <li>{{ equipment.author }}</li>
+    <li>{{ equipment.company }}</li>
+    <li>{{ equipment.isbn }}</li>
+    <form action="{% url 'system:addEquipment' %}" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="equipmentIsbn" value="{{ equipment.isbn }}">
+      <input type="submit" value="これ">
+    </form>
+  </ul>
+{% endfor %}
+{% endblock %}
