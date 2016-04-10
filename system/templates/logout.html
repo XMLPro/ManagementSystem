@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-{% block title %}ログアウト{% endblock title %}
-
-<h3 class="page-header">ログアウトしました</h3>
-</body>
+<html lang="ja">
+  <head>
+    {% include "head.html" %}
+    <title>{% block title %}ログアウト{% endblock title %}</title>
+    {% block moreStyle %}{% endblock %}
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/top" class="brand-logo">備品管理システム</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a class="btn indigo lighten-1" href="{% url 'system:top' %}">Top</a></li>
+        </ul>
+      </div>
+    </nav>
+    <h5 class="center">ログアウトしました</h5>
+    <a class="btn indigo lighten-1 hide-on-med-and-up center" href="{% url 'system:top' %}">ログイン画面へ</a>
+  </body>
 </html>
