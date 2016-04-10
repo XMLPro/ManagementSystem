@@ -1,48 +1,64 @@
 {% extends "base.html" %}
 
-{% block title %}備品管理システム{% endblock %}
+{% block title %}備品リクエスト画面{% endblock %}
 {% block content %}
+<div class="row">
+  <div class="card col s12">
+    <h5 class="center">リクエスト一覧</h5>
     {% if request_list %}
-        <form action="{% url 'system:vote' %}" method="post">
-            {% csrf_token %}
-            <table class="table">
-                <tr>
-                    <th></th>
-                    <th>備品名</th>
-                    <th>楽天URL</th>
-                </tr>
-                {% for request_item in request_list %}
-                    <tr>
-                        {% if request_item.vote %}
-                            <th>
-                                <button type="submit" name="request_id" value="{{ request_item.id }}">投票</button>
-                            </th>
-                        {% else %}
-                            <th>
-                                投票済み
-                            </th>
-                        {% endif %}
-
-                        <th>{{ request_item.request_name }}</th>
-                        <th>{{ request_item.url }}</th>
-                    </tr>
-                {% endfor %}
-            </table>
-        </form>
-    {% else %}
-        <p>No data</p>
-    {% endif %}
-    <h3>リクエストの追加</h3>
-
-    <form method="post">
-        <p>
-            <label for="rakuten_url">楽天URL: <input name="url" type="text" required></label>
-        </p>
-
-        <p>
-            <label for="speak">一言: <input name="comment" type="text"></label>
-        </p>
+    <form action="{% url 'system:vote' %}" method="post">
+      {% csrf_token %}
+      <table class="bordered">
+        <tr>
+          <th></th>
+          <th>備品名</th>
+          <th>楽天URL</th>
+        </tr>
+        {% for request_item in request_list %}
+        <tr>
+          {% if request_item.vote %}
+          <th>
+            <button class="btn" type="submit" name="request_id" value="{{ request_item.id }}">投票</button>
+          </th>
+          {% else %}
+          <th>
+            <button class="btn disabled">投票済み</button>
+          </th>
+          {% endif %}
+          <th>{{ request_item.request_name }}</th>
+          <th>{{ request_item.url }}</th>
+        </tr>
+        {% endfor %}
+      </table>
     </form>
-    現在この機能は動いていません。
+    {% else %}
+    <p>No data</p>
+    {% endif %}
+  </div>
+</div>
+<div class="row">
+  <div class="card col s12">
+    <h5 class="center">リクエストの追加</h5>
+    <div class="row">
+      <form class="col s12" class="col s12" method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="input-field col s12">
+            <label for="url">楽天URL:</label>
+            <input name="url" type="text" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <label for="comment">一言:</label>
+            <input name="comment" type="text">
+          </div>
+        </div>
+        <input class="btn right disabled" type="submit">
+    </div>
+      </form>
+  </div>
+</div>
+現在この機能は動いていません。
 
 {% endblock %}
