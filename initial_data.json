@@ -56,7 +56,7 @@
             "author": "unknown",
             "company": "xmlpro",
             "price": "500",
-            "product_code": "001",
+            "isbn": "001",
             "product_url": "http://www.xmlpro.club/shinkan/",
             "image_url": null
         }
@@ -72,7 +72,7 @@
             "author": "unknown",
             "company": "xmlpro",
             "price": "1000",
-            "product_code": "002",
+            "isbn": "002",
             "product_url": "http://www.xmlpro.club/shinkan/",
             "image_url": null
         }
@@ -88,7 +88,7 @@
             "author": "author1",
             "company": "xmlpro",
             "price": "50000",
-            "product_code": "003",
+            "isbn": "003",
             "product_url": "http://www.xmlpro.club/shinkan/",
             "image_url": null
         }
@@ -104,7 +104,7 @@
             "author": "author2",
             "company": "xmlpro",
             "price": "10",
-            "product_code": "004",
+            "isbn": "004",
             "product_url": "http://www.xmlpro.club/shinkan/",
             "image_url": null
         }
@@ -120,7 +120,7 @@
             "author": "author3",
             "company": "xmlpro",
             "price": "0",
-            "product_code": "005",
+            "isbn": "005",
             "product_url": "http://www.xmlpro.club/shinkan/",
             "image_url": null
         }

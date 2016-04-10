@@ -10,18 +10,20 @@
       <nav class="nav-wrapper">
         <a href="#" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="/system">Top</a></li>
-          <li><a href="/system/mypage">Mypage</a></li>
-          <li><a href="/system/log">Log</a></li>
-          <li><a href="/system/request">Request</a></li>
-          <li><a href="/logout">Logout</a></li>
+            <li><a href="{% url 'system:top' %}">Top</a></li>
+            <li><a href="{% url 'system:mypage' %}">Mypage</a></li>
+            <li><a href="{% url 'system:log' %}">Log</a></li>
+            <li><a href="{% url 'system:addEquipment' %}">Add_equipment</a></li>
+            <li><a href="{% url 'system:requestView' %}">Request</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
         <ul class="side-nav" id="mobile">
-          <li><a href="/system">Top</a></li>
-          <li><a href="/system/mypage">Mypage</a></li>
-          <li><a href="/system/log">Log</a></li>
-          <li><a href="/system/request">Request</a></li>
-          <li><a href="/logout">Logout</a></li>
+            <li><a href="{% url 'system:top' %}">Top</a></li>
+            <li><a href="{% url 'system:mypage' %}">Mypage</a></li>
+            <li><a href="{% url 'system:log' %}">Log</a></li>
+            <li><a href="{% url 'system:addEquipment' %}">Add_equipment</a></li>
+            <li><a href="{% url 'system:requestView' %}">Request</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
       </nav>
       {% block header %}{% endblock %}
