@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
-  {% include "head.html" %}
+  <head>
+    {% include "head.html" %}
+    <title>{% block title %}XMLPro備品管理システム{% endblock %}</title>
+    {% block moreStyle %}{% endblock %}
+  </head>
   <body>
     <header>
       <nav class="nav-wrapper">
