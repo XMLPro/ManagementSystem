@@ -1,76 +1,78 @@
 {% extends "base.html" %}
 
-{% block title %}備品管理システム{% endblock %}
+{% block title %}備品管理システム: Top{% endblock %}
 {% block moreStyle %}
-    <link href="{{ STATIC_URL }}css/topcss.css" rel="stylesheet">
-    <script type="text/javascript" src="{{ STATIC_URL }}scripts/topjs.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/topjs.js"></script>
 {% endblock %}
-{% block pagetitle %}貸出備品一覧: {{ username }}{% endblock %}
 {% block content %}
-
-    <div class="panel panel-default">
-        <form name="searchform" id="searchform" method="POST" action="/system/">
-            {% csrf_token %}
-            <div class="input-group">
-                <input type="text" name="keywords" class="form-control" placeholder="Search for..."
-                       value="{{ keywords }}">
-
-                <div class="input-group-btn">
-                    <input class="btn btn-default" type="submit">
-                </div>
-            </div>
-        </form>
+<div class="row">
+  <form class="col s12" name="searchform" id="searchform" method="POST" action="/system/">
+    <div class="row">
+      {% csrf_token %}
+      <div class="col s8 m10">
+        <input type="text" name="keywords" class="form-control" placeholder="Search for ..." value="{{ keywords }}">
+      </div>
+      <div class="col s4 m2">
+        <input class="waves-effect waves-light btn" type="submit" value="検索">
+      </div>
     </div>
-    {% if equipment_list %}
-        <!-- main content -->
-        <ul class="list_group">
-            {% for equipment in equipment_list %}
-                <li>
-                    <h3 class="list-group-item-heading">{{ equipment }}</h3>
+  </form>
+  {% if equipment_list %}
+  <!-- main content -->
+  <ul class="col s12">
+    {% for equipment in equipment_list %}
+    <li class="row">
+      <div class="card col s12">
+        <div class="card-content">
+          <span class="card-title"><h4>{{ equipment }}</h4></span>
+          <p>
+          <h5>著者: {{ equipment.author }}</h6>
+          </p>
+          <br>
+          <div class="list-group-item-text">
+            <form action="{% url 'system:tag_remove' %}" class="ajax_remove">
+              Tags:<span class="tag-item-group">
+                {% for tag in equipment.tags %}
+                <span class="tag-item">
+                  <div class="chip">
+                    {{ tag }}
+                    <i class="material-icons glyphicon-remove" aria-hidden="true">close</i>
+                    <input type="hidden" value="{{ tag.relation_id }}">
+                  </div>
+                </span>
+                {% endfor %}
+              </span>
+            </form>
+          </div>
+        </div>
+        <div class="card-action">
+          <form class="right" method="post" action="{{ equipment.button.url }}">
+            {% csrf_token %}
+            <button class="btn" name="equipment_id" value="{{ equipment.id }}">{{ equipment.button }}</button>
+          </form>
+          <a class="edit-show">タグ編集</a>
 
-                    <a class="edit-show">タグ編集</a>
+          <div class="tag-edit">
+            <form class="ajax_post" action="{% url 'system:tag_add' %}">
+              {% csrf_token %}
+              <div class="input-group">
+                <input type="text" name="tag-keywords" class="form-control tag-input" placeholder="空白を入れると複数追加">
+                <input type="hidden" value="{{ equipment.id }}" class="equipment_id"/>
+                <span class="input-group-btn">
+                  <button class="btn tag-submit" type="button">追加</button>
+                </span>
+              </div>
+            </form>
+          </div>
 
-                    <div class="tag-edit">
-                        <form class="ajax_post" action="{% url 'system:tag_add' %}">
-                            {% csrf_token %}
-                            <div class="input-group">
-                                <input type="text" name="tag-keywords" class="form-control tag-input"
-                                       placeholder="空白を入れると複数追加">
-                                <input type="hidden" value="{{ equipment.id }}" class="equipment_id"/>
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default tag-submit" type="button">追加</button>
-                                    </span>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="list-group-item-text">
-                        <form action="{% url 'system:tag_remove' %}" class="ajax_remove">
-                            <span class="tag-item-group">
-                            {% for tag in equipment.tags %}
-                                <span class="tag-item">
-                                    <span class="label label-primary">{{ tag }}</span>
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </span>
-                                <input type="hidden" name="tag_id" class="tag_id" value="{{ tag.relation_id }}">
-                            {% endfor %}
-                            </span>
-                        </form>
-                    </div>
-
-                    <form method="post" action="{{ equipment.button.url }}">
-                        {% csrf_token %}
-                        <button name="equipment_id" value="{{ equipment.id }}">{{ equipment.button }}</button>
-                    </form>
-                    <hr/>
-                </li>
-            {% endfor %}
-
-
-        </ul>
-    {% else %}
-        <p>no equipment_list</p>
-    {% endif %}
-    <!-- end main content -->
-
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>no equipment_list</p>
+  {% endif %}
+  <!-- end main content -->
+</div>
 {% endblock %}
