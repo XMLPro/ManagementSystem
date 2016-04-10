@@ -1,20 +1,24 @@
 {% extends "base.html" %}
 
 {% block title %}備品の歴史{% endblock %}
-{% block moreStyle %}
-<style type="text/css">
-</style>
-{% endblock %}
 {% block content %}
-  <form method="POST" action="/system/log/">
-    {% csrf_token %}
-    <input name="keywords" type="text" placeholder="search" value="{{ keywords }}">
-    <input type="submit">
-  </form><br>
+<div class="row">
+  <form class="col s12" method="POST" action="/system/log/">
+    <div class="row">
+      {% csrf_token %}
+      <div class="col s8 m10">
+        <input type="text" name="keywords" class="form-control" placeholder="Search for ..." value="{{ keywords }}">
+      </div>
+      <div class="col s4 m2">
+        <input class="waves-effect waves-light btn" type="submit" value="検索">
+      </div>
+    </div>
+  </form>
+</div>
+<div class="row">
   {% if log_list %}
   <!-- main content -->
-
-  <table>
+  <table class="bordered">
     <tr>
       <th>借りた人</th>
       <th>借りた物</th>
@@ -27,16 +31,16 @@
       <td>{{ log.equipment}}</td>
       <td>{{ log.borrowed_date }}</td>
       {% if log.return_date %}
-        <td>{{ log.return_date }}</td>
+      <td>{{ log.return_date }}</td>
       {% else %}
-        <td>貸出中</td>
+      <td>貸出中</td>
       {% endif %}
     </tr>
     {% endfor %}
   </table>
   {% else %}
-    <p>no log_list</p>
+  <p>no log_list</p>
   {% endif %}
-  <!-- end main content -->
-
+</div>
+<!-- end main content -->
 {% endblock %}
