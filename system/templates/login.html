@@ -1,30 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-{% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
-{% endif %}
-
-<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
-    {% csrf_token %}
-    <table>
-        <tr>
-            <td>{{ form.username.label_tag }}</td>
-            <td>{{ form.username }}</td>
-        </tr>
-        <tr>
-            <td>{{ form.password.label_tag }}</td>
-            <td>{{ form.password }}</td>
-        </tr>
-    </table>
-
-    <input type="submit" value="login"/>
-    <input type="hidden" name="next" value="{{ next }}"/>
-</form>
-<a href="{% url 'system:user_register' %}">新規ユーザー登録</a>
-</body>
+<html lang="ja">
+  {% include "head.html" %}
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">備品管理システム</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a class="btn indigo lighten-1" href="{% url 'system:user_register' %}">新規ユーザー登録</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="row">
+      <form class="col s12 m6 offset-m3" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+        {% csrf_token %}
+        {% if form.errors %}
+        <p>ユーザー名またはパスワードが違うっぽい?</p>
+        {% endif %}
+        <div class="row">
+          <div class="input-field col s12">
+            {{ form.username }}
+            {{ form.username.label_tag }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+          </div>
+        </div>
+        <a class="btn indigo lighten-1 hide-on-med-and-up" href="{% url 'system:user_register' %}">新規ユーザー登録</a>
+        <input class="btn right indigo lighten-1" type="submit" value="login"/>
+        <input type="hidden" name="next" value="{{ next }}"/>
+      </form>
+    </div>
+  </body>
 </html>
