@@ -2,24 +2,28 @@
 {% block title %}{{ message }}完了{% endblock %}
 {% block moreScript %}
 <script type="text/javascript">
-  function redirect(id, init_time){
-    var timer = init_time - 1;
-    return function(){
-      if(timer > 0){
-        document.getElementById(id).innerHTML = timer;
-        timer--;
-      }else{
-        location.href="{{ backurl }}";
-      }
+function redirect(id, init_time){
+  var timer = init_time - 1;
+  return function(){
+    if(timer > 0){
+      document.getElementById(id).innerHTML = timer;
+      timer--;
+    }else{
+      location.href="{{ backurl }}";
     }
   }
+}
 var count_up = redirect("redirect_to_topView", 3);
 setInterval(count_up, 1000);
 </script>
 {% endblock %}
 
 {% block content %}
-{% block pagetitle %}{{ message }}が完了しました！{% endblock %}
-<p><span id="redirect_to_topView">3</span>秒後に{{ backtitle }}に飛びます。</p>
-<a href="{{ backurl }}">{{ backtitle }}に移動する</a>
+<div class="row">
+  <div class="col s12 center">
+    {% block pagetitle %}{{ message }}が完了しました！{% endblock %}
+    <p><span id="redirect_to_topView">3</span>秒後に{{ backtitle }}に飛びます。</p>
+    <a href="{{ backurl }}">{{ backtitle }}に移動する</a>
+  </div>
+</div>
 {% endblock %}
