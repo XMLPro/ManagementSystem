@@ -1,35 +1,40 @@
 {% extends "base.html" %}
-
 {% block title %}備品追加{% endblock %}
-
-{% block moreStyle%}
-<style type="text/css">
-  .equipment{
-    border: solid;
-  }
-</style>
-{% endblock %}
-
 {% block content %}
-<p>適当で大丈夫です。</p>
-<form action="{% url 'system:addEquipment' %}" method="GET">
-  <input type="text" name="keyword" placeholder="search">
-  <input type="text" name="author" placeholder="author">
-  <input type="text" name="publisher" placeholder="publisher">
-  <input type="isbn" name="isbn" placeholder="isbn">
-  <input type="submit">
-</form>
-{% for equipment in items %}
-  <ul class="equipment">
-    <li>{{ equipment.equipment_name }}</li>
-    <li>{{ equipment.author }}</li>
-    <li>{{ equipment.company }}</li>
-    <li>{{ equipment.isbn }}</li>
-    <form action="{% url 'system:addEquipment' %}" method="POST">
-      {% csrf_token %}
-      <input type="hidden" name="equipmentIsbn" value="{{ equipment.isbn }}">
-      <input type="submit" value="これ">
+<div class="row">
+  <div class="col s12">
+    <p>適当で大丈夫です。</p>
+    <form action="{% url 'system:addEquipment' %}" method="GET">
+      <input type="text" name="keyword" placeholder="search">
+      <input type="text" name="author" placeholder="author">
+      <input type="text" name="publisher" placeholder="publisher">
+      <input type="isbn" name="isbn" placeholder="isbn">
+      <input class="btn right" type="submit" value="検索">
     </form>
-  </ul>
+  </div>
+</div>
+{% for equipment in items %}
+<div class="row">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ equipment.equipment_name }}</span>
+        <p>著者: {{ equipment.author }}</p>
+        <p>出版社: {{ equipment.company }}</p>
+        <p>ISBN: {{ equipment.isbn }}</p>
+      </div>
+      <div class="card-action">
+        <a>
+          <form action="{% url 'system:addEquipment' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="equipmentIsbn" value="{{ equipment.isbn }}">
+            <a href="{{ equipment.product_url }}">詳細</a>
+            <input class="btn right" type="submit" value="備品登録">
+          </form>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endfor %}
 {% endblock %}
