@@ -19,20 +19,24 @@
         <div class="card">
           <div class="row">
             <div class="input-field col s12">
+              <div class="right red-text"> {{ register_forms.usename.errors }} </div>
               <label for="username">ユーザー名:</label>
-              <input type="text" name="username" required>
+              <input type="text" name="username" value='{% if register_forms.username.value %}{{ register_forms.username.value }}{% endif %}' required>
             </div>
             <div class="input-field col s12">
+              <div class="right red-text"> {{ register_forms.password1.errors }} </div>
               <label for="password1">パスワード:</label>
               <input type="password" name="password1" required>
             </div>
             <div class="input-field col s12">
+              <div class="right red-text"> {{ register_forms.password2.errors }} </div>
               <label for="password2">パスワード再確認:</label>
               <input type="password" name="password2" required>
             </div>
             <div class="input-field col s12">
+              <div class="right red-text"> {{ register_forms.email.errors }} </div>
               <label for="email">Email:</label>
-              <input type="text" name="email" required>
+              <input type="text" name="email" value="{% if register_forms.username.value %}{{ register_forms.email.value }}{% endif %}" required>
             </div>
           </div>
         </div>

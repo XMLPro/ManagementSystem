@@ -22,6 +22,7 @@
         {% endif %}
         <div class="row">
           <div class="input-field col s12">
+            <div class="right red-text"> {{ register_forms.usename.errors }} </div>
             <label for="username">ユーザー名:</label>
             <input type="text" name="username" required>
           </div>
