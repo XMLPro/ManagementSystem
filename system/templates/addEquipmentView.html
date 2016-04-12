@@ -13,10 +13,10 @@
 {% block content %}
 <p>適当で大丈夫です。</p>
 <form action="{% url 'system:addEquipment' %}" method="GET">
-  <input type="text" name="keyword" placeholder="検索">
-  <input type="text" name="author" placeholder="著者">
-  <input type="text" name="publisher" placeholder="出版社">
-  <input type="isbn" name="isbn" placeholder="isbn">
+  <input type="text" name="keyword" placeholder="検索" value="{{ keyword }}">
+  <input type="text" name="author" placeholder="著者" value="{{ author }}">
+  <input type="text" name="publisher" placeholder="出版社" value="{{ publisher }}">
+  <input type="isbn" name="isbn" placeholder="isbn" value="{{ isbn }}">
   <input type="submit" value="検索">
 </form>
 {% if error %}
