@@ -16,6 +16,7 @@ def addEquipmentView(request):
             }))
 
     items = []
+    error = ""
     if request.GET and (
             request.GET.get("keyword") or
             request.GET.get("author") or
@@ -32,7 +33,11 @@ def addEquipmentView(request):
         items = rakutenApi.getItems()
         items = [x.createEquipment() for x in items]
 
+        if not items:
+            error = "検索結果が見つかりませんでした。"
+
     return render_to_response("addEquipmentView.html", RequestContext(
         request, {
             "items": items,
+            "error": error,
         }))
