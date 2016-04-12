@@ -5,10 +5,30 @@
   <div class="col s12">
     <p>適当で大丈夫です。</p>
     <form action="{% url 'system:addEquipment' %}" method="GET">
-      <input type="text" name="keyword" placeholder="検索" value="{{ keyword }}">
-      <input type="text" name="author" placeholder="著者" value="{{ author }}">
-      <input type="text" name="publisher" placeholder="出版社" value="{{ publisher }}">
-      <input type="isbn" name="isbn" placeholder="isbn" value="{{ isbn }}">
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="keyword">検索:</label>
+          <input type="text" name="keyword" value="{{ keyword }}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="author">著者:</label>
+          <input type="text" name="author" value="{{ author }}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="publisher">出版社:</label>
+          <input type="text" name="publisher" value="{{ publisher }}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <label for="isbn">isbn:</label>
+          <input type="text" name="isbn" value="{{ isbn }}">
+        </div>
+      </div>
       <input class="btn right" type="submit" value="検索">
     </form>
   </div>

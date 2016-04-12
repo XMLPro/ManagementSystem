@@ -2,6 +2,7 @@
 
 {% block title %}備品リクエスト画面{% endblock %}
 {% block content %}
+*現在この機能は動いていません。
 <div class="row">
   <div class="card col s12">
     <h5 class="center">リクエスト一覧</h5>
@@ -22,7 +23,7 @@
           </th>
           {% else %}
           <th>
-            <button class="btn disabled">投票済み</button>
+            <div class="btn disabled">投票済</div>
           </th>
           {% endif %}
           <th>{{ request_item.request_name }}</th>
@@ -54,11 +55,11 @@
             <input name="comment" type="text">
           </div>
         </div>
-        <input class="btn right disabled" type="submit">
-    </div>
+        <!-- <input class="btn right disabled" type="submit" value="追加"> -->
+        <div class="btn right disabled">追加</div>
       </form>
+    </div>
   </div>
 </div>
-現在この機能は動いていません。
 
 {% endblock %}

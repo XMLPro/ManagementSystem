@@ -18,17 +18,28 @@
         {% csrf_token %}
         <div class="card">
           <div class="row">
-            {% for form in register_forms %}
             <div class="input-field col s12">
-              {{ form.label_tag }}
-              {{ form }}
+              <label for="username">ユーザー名:</label>
+              <input type="text" name="username" required>
             </div>
-            {% endfor %}
+            <div class="input-field col s12">
+              <label for="password1">パスワード:</label>
+              <input type="password" name="password1" required>
+            </div>
+            <div class="input-field col s12">
+              <label for="password2">パスワード再確認:</label>
+              <input type="password" name="password2" required>
+            </div>
+            <div class="input-field col s12">
+              <label for="email">Email:</label>
+              <input type="text" name="email" required>
+            </div>
           </div>
         </div>
 
         <input class="btn indigo lighten-1 right right" type="submit" value="register"/>
       </form>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
   </body>
 </html>

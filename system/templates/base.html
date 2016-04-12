@@ -10,20 +10,20 @@
       <nav class="nav-wrapper">
         <a href="#" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="{% url 'system:top' %}">Top</a></li>
-            <li><a href="{% url 'system:mypage' %}">Mypage</a></li>
-            <li><a href="{% url 'system:log' %}">Log</a></li>
-            <li><a href="{% url 'system:addEquipment' %}">Add_equipment</a></li>
-            <li><a href="{% url 'system:requestView' %}">Request</a></li>
-            <li><a href="/logout">Logout</a></li>
+          <li><a href="{% url 'system:top' %}">トップ</a></li>
+          <li><a href="{% url 'system:mypage' %}">マイページ</a></li>
+          <li><a href="{% url 'system:log' %}">履歴</a></li>
+          <li><a href="{% url 'system:addEquipment' %}">備品登録</a></li>
+          <li><a href="{% url 'system:requestView' %}">備品リクエスト</a></li>
+          <li><a href="/logout">ログアウト</a></li>
         </ul>
         <ul class="side-nav" id="mobile">
-            <li><a href="{% url 'system:top' %}">Top</a></li>
-            <li><a href="{% url 'system:mypage' %}">Mypage</a></li>
-            <li><a href="{% url 'system:log' %}">Log</a></li>
-            <li><a href="{% url 'system:addEquipment' %}">Add_equipment</a></li>
-            <li><a href="{% url 'system:requestView' %}">Request</a></li>
-            <li><a href="/logout">Logout</a></li>
+          <li><a href="{% url 'system:top' %}">トップ</a></li>
+          <li><a href="{% url 'system:mypage' %}">マイページ</a></li>
+          <li><a href="{% url 'system:log' %}">履歴</a></li>
+          <li><a href="{% url 'system:addEquipment' %}">備品登録</a></li>
+          <li><a href="{% url 'system:requestView' %}">備品リクエスト</a></li>
+          <li><a href="/logout">ログアウト</a></li>
         </ul>
       </nav>
       {% block header %}{% endblock %}

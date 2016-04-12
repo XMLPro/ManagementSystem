@@ -18,18 +18,18 @@
       <form class="col s12 m6 offset-m3" method="post" action="{% url 'django.contrib.auth.views.login' %}">
         {% csrf_token %}
         {% if form.errors %}
-        <p>ユーザー名またはパスワードが違うっぽい?</p>
+        <p class="red-text">ユーザー名またはパスワードが違うっぽい?</p>
         {% endif %}
         <div class="row">
           <div class="input-field col s12">
-            {{ form.username }}
-            {{ form.username.label_tag }}
+            <label for="username">ユーザー名:</label>
+            <input type="text" name="username" required>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            {{ form.password.label_tag }}
-            {{ form.password }}
+            <label for="password">パスワード:</label>
+            <input type="password" name="password" required>
           </div>
         </div>
         <a class="btn indigo lighten-1 hide-on-med-and-up" href="{% url 'system:user_register' %}">新規ユーザー登録</a>
@@ -37,5 +37,6 @@
         <input type="hidden" name="next" value="{{ next }}"/>
       </form>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
   </body>
 </html>
