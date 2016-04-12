@@ -14,11 +14,11 @@ class Equipment(models.Model):
     borrowed_date = models.DateField(auto_now=True)
     Lend_count = models.IntegerField(default=0)
 
-    author = models.CharField(max_length=50)
-    company = models.CharField(max_length=50)
-    price = models.IntegerField()
-    product_code = models.IntegerField()
-    product_url = models.CharField(max_length=200)
+    author = models.CharField(max_length=50, null=True, blank=True)
+    company = models.CharField(max_length=50, null=True, blank=True)
+    price = models.IntegerField(default=0)
+    isbn = models.CharField(max_length=50, null=True, blank=True)
+    product_url = models.CharField(max_length=200, null=True, blank=True)
     image_url = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
