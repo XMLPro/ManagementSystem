@@ -16,23 +16,35 @@ def addEquipmentView(request):
             }))
 
     items = []
+    error = ""
+    keyword = request.GET.get("keyword")
+    author = request.GET.get("author")
+    publisher = request.GET.get("publisher")
+    isbn = request.GET.get("isbn")
     if request.GET and (
-            request.GET.get("keyword") or
-            request.GET.get("author") or
-            request.GET.get("publisher") or
-            request.GET.get("isbn")
-            ):
+            keyword or
+            author or
+            publisher or
+            isbn):
         rakutenApi = RakutenBooks(
-                title=request.GET.get("keyword"),
-                author=request.GET.get("author"),
-                publisherName=request.GET.get("publisher"),
-                isbn=request.GET.get("isbn")
+                title=keyword,
+                author=author,
+                publisherName=publisher,
+                isbn=isbn
                 )
         rakutenApi.search()
         items = rakutenApi.getItems()
         items = [x.createEquipment() for x in items]
 
+        if not items:
+            error = "検索結果が見つかりませんでした。"
+
     return render_to_response("addEquipmentView.html", RequestContext(
         request, {
+            "keyword": keyword if keyword else "",
+            "author": author if keyword else "",
+            "publisher": publisher if keyword else "",
+            "isbn": isbn if keyword else "",
             "items": items,
+            "error": error,
         }))

@@ -32,7 +32,8 @@ class Rakuten():
         response = requests.get(self._url + self._queryUrl)
         response.encoding = response.apparent_encoding
         io = StringIO(response.text)
-        self.searchResult = json.load(io)["Items"]
+        searchResult = json.load(io).get("Items")
+        self.searchResult = searchResult if searchResult else []
 
     def getResult(self):
         return self.searchResult
