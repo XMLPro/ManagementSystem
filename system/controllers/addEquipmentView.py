@@ -41,10 +41,10 @@ def addEquipmentView(request):
 
     return render_to_response("addEquipmentView.html", RequestContext(
         request, {
-            "keyword": keyword,
-            "author": author,
-            "publisher": publisher,
-            "isbn": isbn,
+            "keyword": keyword if keyword else "",
+            "author": author if keyword else "",
+            "publisher": publisher if keyword else "",
+            "isbn": isbn if keyword else "",
             "items": items,
             "error": error,
         }))
