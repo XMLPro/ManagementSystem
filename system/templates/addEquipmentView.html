@@ -13,23 +13,27 @@
 {% block content %}
 <p>適当で大丈夫です。</p>
 <form action="{% url 'system:addEquipment' %}" method="GET">
-  <input type="text" name="keyword" placeholder="search">
-  <input type="text" name="author" placeholder="author">
-  <input type="text" name="publisher" placeholder="publisher">
-  <input type="isbn" name="isbn" placeholder="isbn">
-  <input type="submit">
+  <input type="text" name="keyword" placeholder="検索" value="{{ keyword }}">
+  <input type="text" name="author" placeholder="著者" value="{{ author }}">
+  <input type="text" name="publisher" placeholder="出版社" value="{{ publisher }}">
+  <input type="isbn" name="isbn" placeholder="isbn" value="{{ isbn }}">
+  <input type="submit" value="検索">
 </form>
-{% for equipment in items %}
-  <ul class="equipment">
-    <li>{{ equipment.equipment_name }}</li>
-    <li>{{ equipment.author }}</li>
-    <li>{{ equipment.company }}</li>
-    <li>{{ equipment.isbn }}</li>
-    <form action="{% url 'system:addEquipment' %}" method="POST">
-      {% csrf_token %}
-      <input type="hidden" name="equipmentIsbn" value="{{ equipment.isbn }}">
-      <input type="submit" value="これ">
-    </form>
-  </ul>
-{% endfor %}
+{% if error %}
+  {{ error }}
+{% else %}
+  {% for equipment in items %}
+    <ul class="equipment">
+      <li>{{ equipment.equipment_name }}</li>
+      <li>{{ equipment.author }}</li>
+      <li>{{ equipment.company }}</li>
+      <li>{{ equipment.isbn }}</li>
+      <form action="{% url 'system:addEquipment' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="equipmentIsbn" value="{{ equipment.isbn }}">
+        <input type="submit" value="これ">
+      </form>
+    </ul>
+  {% endfor %}
+{% endif %}
 {% endblock %}
