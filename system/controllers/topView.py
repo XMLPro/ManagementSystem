@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from system.models import Equipment, Reserved, Tag, TagManagement
 from django.template import RequestContext
+from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from system.controllers.search import search_equipmant
 
@@ -69,6 +70,10 @@ def create_button(equipment, username):
     # [ 予約 ]
     # それ以外
     return create_reserve_button()
+
+
+def redirectToTop(request):
+    return redirect(reverse("system:top"))
 
 
 def topView(request):

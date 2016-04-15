@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
+    url(r'^$', 'system.controllers.topView.redirectToTop'),
     url(r'^system/', include('system.urls', namespace='system')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'django.contrib.auth.views.login',
