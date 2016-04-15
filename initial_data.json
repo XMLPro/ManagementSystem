@@ -313,7 +313,7 @@
         "pk": 1,
         "fields": {
             "request_name": "request01",
-            "url": "amazonUrl01"
+            "url": "rakutenUrl01"
         }
     },
     {
@@ -321,7 +321,7 @@
         "pk": 2,
         "fields": {
             "request_name": "request02",
-            "url": "amazonUrl02"
+            "url": "rakutenUrl02"
         }
     },
     {
