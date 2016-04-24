@@ -1,10 +1,12 @@
 from django.shortcuts import render_to_response, redirect
+from django.http import HttpResponse
 from system.models import CustomUser
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import BaseUserManager
 from django import forms
+from system.controllers.postFinishView import finish
 
 
 class RegisterForm(UserCreationForm):
@@ -16,9 +18,9 @@ class RegisterForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data["email"]
-        username = self.cleaned_data["username"]
+        # username = self.cleaned_data["username"]
         if email and CustomUser.objects.filter(
-                email=email).exclude(username=username).count():
+                email=email).count() > 0:
             raise forms.ValidationError("同じメールアドレスが既に登録済みです。")
         return email
 
@@ -38,7 +40,14 @@ def userRegister(request):
         if form.is_valid():
             print("=== create user ===: " + str(form.cleaned_data["username"]))
             form.save()
-            return redirect(reverse("system:finish_register"))
+            return finish("user_register", "login", "ログイン画面")
+        print(type(form._errors))
+        errorList = form._errors
+        errorList["password"] = form._errors["password2"]
+        del errorList["password2"]
+        return render_to_response("userRegisterErrorView.html", RequestContext(request, {
+            "errorList": errorList,
+            }))
     return userRegisterView(request)
 
 
