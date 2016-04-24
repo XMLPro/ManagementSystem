@@ -1,4 +1,5 @@
 from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response
 from django.conf import settings
 from re import compile
 
@@ -38,5 +39,6 @@ class LoginMiddleware:
             path = request.path_info.lstrip('/')
             if not any(m.match(path) for m in ALLOWED_EXEMPT_URLS):
                 print('not allowed')
+                return render_to_response("notAllowView.html")
             else:
                 print('allowed')

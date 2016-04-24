@@ -5,9 +5,6 @@ from system.controllers.rakuten import RakutenBooks
 
 
 def addEquipmentView(request):
-    if not request.user.is_superuser:
-        return render_to_response("notAllowView.html")
-
     if request.method == "POST":
         RakutenBooks.getItem(
                 request.POST.get("equipmentIsbn")).createEquipment().save()
