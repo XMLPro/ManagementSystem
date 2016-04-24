@@ -6,6 +6,7 @@ from system.controllers import requestView
 from system.controllers import borrowReturnPost, reservePost, postFinishView
 from system.controllers import userRegister
 from system.controllers import addEquipmentView
+from system.controllers import notAllowView
 
 urlpatterns = [
     url(r'^$', topView.topView, name='top'),
@@ -34,4 +35,6 @@ urlpatterns = [
 
     url(r'^add_equipment/$', addEquipmentView.addEquipmentView,
         name="addEquipment"),
+
+    url(r'^not_allow/$', notAllowView.notAllowView, name="not_allow"),
 ]
