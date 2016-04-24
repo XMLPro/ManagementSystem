@@ -1,5 +1,4 @@
 from django.shortcuts import render_to_response, redirect
-from django.http import HttpResponse
 from system.models import CustomUser
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
@@ -38,16 +37,16 @@ def userRegister(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            print("=== create user ===: " + str(form.cleaned_data["username"]))
+            print("=== create user ===: " + str(
+                form.cleaned_data["username"]))
             form.save()
             return finish("user_register", "login", "ログイン画面")
         print(type(form._errors))
         errorList = form._errors
         errorList["password"] = form._errors["password2"]
         del errorList["password2"]
-        return render_to_response("userRegisterErrorView.html", RequestContext(request, {
-            "errorList": errorList,
-            }))
+        return render_to_response("userRegisterErrorView.html", RequestContext(
+            request, {"errorList": errorList}))
     return userRegisterView(request)
 
 
