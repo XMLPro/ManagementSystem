@@ -6,6 +6,7 @@
             "username": "super-user1",
             "is_superuser": "True",
             "is_staff": "True",
+            "is_valid": "True",
             "password": "pbkdf2_sha256$20000$xmpvzspU5zdy$p2XPW/MU68BuSCevnY+wWOLJ41LV1kZ2yBM/6k4XEEw="
         }
     },
