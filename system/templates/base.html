@@ -13,8 +13,8 @@
           <li><a href="{% url 'system:top' %}">トップ</a></li>
           <li><a href="{% url 'system:mypage' %}">マイページ</a></li>
           <li><a href="{% url 'system:log' %}">履歴</a></li>
-          <li><a href="{% url 'system:addEquipment' %}">備品登録</a></li>
           {% if user.is_superuser %}
+            <li><a href="{% url 'system:addEquipment' %}">備品登録</a></li>
             <li><a href="{% url 'system:requestView' %}">備品リクエスト</a></li>
             <li><a href="/admin">管理者ページ</a></li>
           {% endif %}
@@ -24,8 +24,8 @@
           <li><a href="{% url 'system:top' %}">トップ</a></li>
           <li><a href="{% url 'system:mypage' %}">マイページ</a></li>
           <li><a href="{% url 'system:log' %}">履歴</a></li>
-          <li><a href="{% url 'system:addEquipment' %}">備品登録</a></li>
           {% if user.is_superuser %}
+            <li><a href="{% url 'system:addEquipment' %}">備品登録</a></li>
             <li><a href="{% url 'system:requestView' %}">備品リクエスト</a></li>
             <li><a href="/admin">管理者ページ</a></li>
           {% endif %}
