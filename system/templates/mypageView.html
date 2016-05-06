@@ -2,72 +2,56 @@
 {% block title %}Myページ{% endblock %}
 
 {% block content %}
-<h1>Myページ</h1>
-<hr>
-<h4>自分が借りているもの一覧</h4>
-<table>
-  <tr>
-    <th>備品名</th> <th>予約人数</th> <th></th>
-  </tr>
-  <!-- sample
-    <tr>
-    <form action="">
-    <input type="hidden" name="equipment_id" value="0">
-    <td>現在借りている書籍</td>
-    <td> 4 </td>
-    <td><input type="button" value="返却"></td>
-    </form>
-    </tr>
-    END sample -->
-    <form action="{% url 'system:manage-return' %}?backname=system:mypage&backtitle=Myページ" method="post">
-      {% csrf_token %}
-      {% for borrower_item in borrower_list%}
+<div class="row">
+  <div class="card col s12">
+    <h5>自分が借りているもの一覧</h5>
+    <table class="bordered">
       <tr>
-        <td>{{ borrower_item }}</td>
-        <td>{{ borrower_item.num }}</td>
-        <td><button name="equipment_id" value="{{ borrower_item.id }}">返却</button></td>
+        <th>備品名</th> <th>予約人数</th> <th></th>
       </tr>
-      {% endfor %}
-    </form>
-</table>
+      <form action="{% url 'system:manage-return' %}?backname=system:mypage&backtitle=Myページ" method="post">
+        {% csrf_token %}
+        {% for borrower_item in borrower_list%}
+        <tr>
+          <td>{{ borrower_item }}</td>
+          <td>{{ borrower_item.num }}</td>
+          <td><button class="btn" name="equipment_id" value="{{ borrower_item.id }}">返却</button></td>
+        </tr>
+        {% endfor %}
+      </form>
+    </table>
+  </div>
+</div>
 
-<hr>
-
-<h4>予約一覧</h4>
-<table>
-  <tr>
-    <th>備品名</th> <th></th> <th></th>
-  </tr>
-  <!-- sample
-    <tr>
-    <form action="">
-    <input type="hidden" name="reserved_id" value="{{ my_borrow.reserved.id }}">
-    <td>予約している備品名</td>
-    <td><input type="button" value="予約取り消し"></td>
-    <td><input type="button" value="借りる"></td>
-    </form>
-    </tr>
-    END sample -->
-    {% for reserved_item in reserved_list %}
-    <tr>
+<div class="row">
+  <div class="card col s12">
+    <h5>予約一覧</h5>
+    <table class="bordered">
+      <tr>
+        <th>備品名</th> <th></th> <th></th>
+      </tr>
+      {% for reserved_item in reserved_list %}
+      <tr>
         <td>{{ reserved_item.equipment.equipment_name }}</td>
         <td>
           <form action="{% url 'system:manage-cancel' %}?backname=system:mypage&backtitle=Myページ" method="post">
             {% csrf_token %}
             <input type="hidden" name="reserved_id" value="{{ reserved_item.id }}">
-            <input type="submit" value="予約取り消し">
+            <input class="btn" type="submit" value="予約取り消し">
           </form>
         </td>
         {% if reserved_item.can_borrow %}
-          <td>
-            <form action="{% url 'system:manage-borrow' %}?backname=system:mypage&backtitle=Myページ" method="post">
-              {% csrf_token %}
-              <input type="hidden" name="equipment_id" value="{{ reserved_item.equipment.id }}">
-              <input type="submit" value="借りる">
-            </form>
-          </td>
+        <td>
+          <form action="{% url 'system:manage-borrow' %}?backname=system:mypage&backtitle=Myページ" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="equipment_id" value="{{ reserved_item.equipment.id }}">
+            <input class="btn" type="submit" value="借りる">
+          </form>
+        </td>
         {% endif %}
-    </tr>
-    {% endfor %}
-</table>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
 {% endblock %}

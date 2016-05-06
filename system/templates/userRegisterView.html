@@ -1,15 +1,49 @@
-<p>ユーザー登録</p>
-<form method="post" action="{% url 'system:user_register' %}">
-    {% csrf_token %}
-    <table>
-    {% for form in register_forms %}
-      <tr>
-        <td>{{ form.label_tag }}</td>
-        <td>{{ form }}</td>
-        <td>{{ form.errors }}</td>
-      </tr>
-    {% endfor %}
-    </table>
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    {% include "head.html" %}
+    <title>{% block title %}XMLPro備品管理システム{% endblock %}</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="/login" class="brand-logo">備品管理システム</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a class="btn indigo lighten-1" href="/login">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="row">
+      <form class="col s12 m6 offset-m3" method="post" action="{% url 'system:user_register' %}">
+        {% csrf_token %}
+        <div class="card">
+          <div class="row">
+            <div class="input-field col s12">
+              <div class="right red-text"> {{ register_forms.usename.errors }} </div>
+              <label for="username">ユーザー名:</label>
+              <input type="text" name="username" value='{% if register_forms.username.value %}{{ register_forms.username.value }}{% endif %}' required>
+            </div>
+            <div class="input-field col s12">
+              <div class="right red-text"> {{ register_forms.password1.errors }} </div>
+              <label for="password1">パスワード:</label>
+              <input type="password" name="password1" required>
+            </div>
+            <div class="input-field col s12">
+              <div class="right red-text"> {{ register_forms.password2.errors }} </div>
+              <label for="password2">パスワード再確認:</label>
+              <input type="password" name="password2" required>
+            </div>
+            <div class="input-field col s12">
+              <div class="right red-text"> {{ register_forms.email.errors }} </div>
+              <label for="email">Email:</label>
+              <input type="text" name="email" value="{% if register_forms.username.value %}{{ register_forms.email.value }}{% endif %}" required>
+            </div>
+          </div>
+        </div>
 
-    <input type="submit" value="register"/>
-</form>
+        <input class="btn indigo lighten-1 right right" type="submit" value="register"/>
+      </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  </body>
+</html>

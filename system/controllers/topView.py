@@ -128,6 +128,7 @@ def ajax_tag_add(request):
 
 
 def ajax_tag_remove(request):
+    print(request.POST['tag_id'])
     TagManagement.objects.get(pk=request.POST['tag_id']).delete()
     tags = Tag.objects.all()
     for t in tags:

@@ -36,6 +36,7 @@ ALLOWED_EXEMPT_URLS = (
 )
 LOGIN_EXEMPT_URLS = (
     r'^system/user_register/',
+    r'^static/',
 )
 
 
