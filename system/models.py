@@ -14,6 +14,13 @@ class Equipment(models.Model):
     borrowed_date = models.DateField(auto_now=True)
     Lend_count = models.IntegerField(default=0)
 
+    author = models.CharField(max_length=50, null=True, blank=True)
+    company = models.CharField(max_length=50, null=True, blank=True)
+    price = models.IntegerField(default=0)
+    isbn = models.CharField(max_length=50, null=True, blank=True)
+    product_url = models.CharField(max_length=200, null=True, blank=True)
+    image_url = models.CharField(max_length=200, null=True, blank=True)
+
     def __str__(self):
         return self.equipment_name
 
@@ -65,6 +72,23 @@ class Log(models.Model):
     user = models.ForeignKey(CustomUser)
     equipment = models.ForeignKey(Equipment)
     borrowed_date = models.DateField(auto_now=True)
+    return_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return str(self.user)
+
+
+# [タグ用のテーブル]
+# [id, タグ名]
+class Tag(models.Model):
+    tag_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return str(self.tag_name)
+
+
+# [タグと備品の紐付け用のテーブル]
+# 備品名(備品id(外部キー)), タグ名
+class TagManagement(models.Model):
+    equipment = models.ForeignKey(Equipment)
+    tag = models.ForeignKey(Tag)

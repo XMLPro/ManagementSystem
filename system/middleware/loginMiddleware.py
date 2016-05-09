@@ -1,4 +1,6 @@
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from re import compile
 
@@ -36,7 +38,9 @@ class LoginMiddleware:
         elif not request.user.is_valid:
             # 許可されていないユーザーかどうかを判定する
             path = request.path_info.lstrip('/')
+            print(ALLOWED_EXEMPT_URLS)
             if not any(m.match(path) for m in ALLOWED_EXEMPT_URLS):
                 print('not allowed')
+                return redirect(reverse("system:not_allow"))
             else:
                 print('allowed')

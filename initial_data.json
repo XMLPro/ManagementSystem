@@ -6,6 +6,7 @@
             "username": "super-user1",
             "is_superuser": "True",
             "is_staff": "True",
+            "is_valid": "True",
             "password": "pbkdf2_sha256$20000$xmpvzspU5zdy$p2XPW/MU68BuSCevnY+wWOLJ41LV1kZ2yBM/6k4XEEw="
         }
     },
@@ -52,7 +53,13 @@
             "equipment_name": "book1",
             "borrowed_date": "2016-02-17",
             "borrower": null,
-            "Lend_count": 0
+            "Lend_count": 0,
+            "author": "unknown",
+            "company": "xmlpro",
+            "price": "500",
+            "isbn": "001",
+            "product_url": "http://www.xmlpro.club/shinkan/",
+            "image_url": null
         }
     },
     {
@@ -62,7 +69,13 @@
             "equipment_name": "book2",
             "borrowed_date": "2016-02-16",
             "borrower": 1,
-            "Lend_count": 1
+            "Lend_count": 1,
+            "author": "unknown",
+            "company": "xmlpro",
+            "price": "1000",
+            "isbn": "002",
+            "product_url": "http://www.xmlpro.club/shinkan/",
+            "image_url": null
         }
     },
     {
@@ -72,7 +85,13 @@
             "equipment_name": "book3",
             "borrowed_date": "2016-02-15",
             "borrower": 1,
-            "Lend_count": 2
+            "Lend_count": 2,
+            "author": "author1",
+            "company": "xmlpro",
+            "price": "50000",
+            "isbn": "003",
+            "product_url": "http://www.xmlpro.club/shinkan/",
+            "image_url": null
         }
     },
     {
@@ -82,7 +101,13 @@
             "equipment_name": "book4",
             "borrowed_date": "2016-02-14",
             "borrower": 2,
-            "Lend_count": 3
+            "Lend_count": 3,
+            "author": "author2",
+            "company": "xmlpro",
+            "price": "10",
+            "isbn": "004",
+            "product_url": "http://www.xmlpro.club/shinkan/",
+            "image_url": null
         }
     },
     {
@@ -92,7 +117,13 @@
             "equipment_name": "book5",
             "borrowed_date": "2016-02-13",
             "borrower": 2,
-            "Lend_count": 4
+            "Lend_count": 4,
+            "author": "author3",
+            "company": "xmlpro",
+            "price": "0",
+            "isbn": "005",
+            "product_url": "http://www.xmlpro.club/shinkan/",
+            "image_url": null
         }
     },
     {
@@ -108,7 +139,7 @@
         "pk": 2,
         "fields": {
             "equipment_name": 1,
-            "meta_data": "やさしい"
+            "meta_data":  "やさしい"
         }
     },
     {
@@ -283,7 +314,7 @@
         "pk": 1,
         "fields": {
             "request_name": "request01",
-            "url": "amazonUrl01"
+            "url": "rakutenUrl01"
         }
     },
     {
@@ -291,7 +322,7 @@
         "pk": 2,
         "fields": {
             "request_name": "request02",
-            "url": "amazonUrl02"
+            "url": "rakutenUrl02"
         }
     },
     {

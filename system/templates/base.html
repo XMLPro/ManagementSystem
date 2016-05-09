@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% block title %}{% endblock %}</title>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
-    <!--&#91;if lt IE 9&#93;>
-      <script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-      <!&#91;endif&#93;-->
-      <link rel="shortcut icon" href="">
-      {% block moreStyle %}{% endblock %}
+    {% include "head.html" %}
+    <title>{% block title %}XMLPro備品管理システム{% endblock %}</title>
+    {% block moreStyle %}{% endblock %}
   </head>
   <body>
     <header>
-      <a href="/logout" style="float:right">Logout</a>
-      <a href="/system/log" style="float:right">log |</a>
-      <a href="/system/request" style="float:right">request |</a>
-      <a href="/system/mypage" style="float:right">mypage |</a>
-      <a href="/system" style="float:right">top |</a>
-      <h1>{% block pagetitle %}{% endblock %}</h1>
+      <nav class="nav-wrapper">
+        <a href="#" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="{% url 'system:top' %}">トップ</a></li>
+          <li><a href="{% url 'system:mypage' %}">マイページ</a></li>
+          <li><a href="{% url 'system:log' %}">履歴</a></li>
+          {% if user.is_superuser %}
+            <li><a href="{% url 'system:addEquipment' %}">備品登録</a></li>
+            <li><a href="{% url 'system:requestView' %}">備品リクエスト</a></li>
+            <li><a href="/admin">管理者ページ</a></li>
+          {% endif %}
+          <li><a href="/logout">ログアウト</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile">
+          <li><a href="{% url 'system:top' %}">トップ</a></li>
+          <li><a href="{% url 'system:mypage' %}">マイページ</a></li>
+          <li><a href="{% url 'system:log' %}">履歴</a></li>
+          {% if user.is_superuser %}
+            <li><a href="{% url 'system:addEquipment' %}">備品登録</a></li>
+            <li><a href="{% url 'system:requestView' %}">備品リクエスト</a></li>
+            <li><a href="/admin">管理者ページ</a></li>
+          {% endif %}
+          <li><a href="/logout">ログアウト</a></li>
+        </ul>
+      </nav>
       {% block header %}{% endblock %}
     </header>
-    <main>
+    <main class="container">
     {% block content %}Content Body{% endblock %}
     </main>
     <footer>
@@ -33,8 +42,11 @@
     </footer>
     <!-- Place your content here -->
     <!-- SCRIPTS -->
-    <!-- Example: <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
-    {% block moreScript %}{% endblock %}
+    <!-- Latest compiled and minified CSS -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    {% block moreScript %}
+    <script>$(".button-collapse").sideNav();</script>
+    {% endblock %}
   </body>
 </html>
-

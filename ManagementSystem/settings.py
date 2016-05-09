@@ -31,8 +31,12 @@ LOGIN_URL = '/login/'
 # Application definition
 LOGIN_REDIRECT_URL = '/system/'
 ALLOWED_EXEMPT_URLS = (
-    r'^admin/',
-    r'^system/$'
+    r'^system/not_allow/$',
+    r'^logout/$'
+)
+LOGIN_EXEMPT_URLS = (
+    r'^system/user_register/',
+    r'^static/',
 )
 
 
@@ -60,6 +64,14 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'ManagementSystem.urls'
 
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "system/static"),
+)
+
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -71,6 +83,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
             ],
         },
     },
@@ -105,8 +118,3 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
-STATIC_URL = '/static/'

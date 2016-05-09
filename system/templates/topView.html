@@ -1,58 +1,84 @@
 {% extends "base.html" %}
 
-{% block title %}備品管理システム{% endblock %}
+{% block title %}備品管理システム: Top{% endblock %}
 {% block moreStyle %}
-<style type="text/css">
-  th{
-    padding: 5px;
-    margin: 5px;
-  }
-  td{
-    padding: 3px;
-    margin: 5px;
-  }
-</style>
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/topjs.js"></script>
 {% endblock %}
 {% block content %}
+<div class="row">
+  <form class="col s12" name="searchform" id="searchform" method="POST" action="/system/">
+    <div class="row">
+      {% csrf_token %}
+      <div class="col s8 m10">
+        <div class="row">
+          <div class="input-field col s12">
+            <label for="keywords">キーワード:</label>
+            <input type="text" name="keywords" value="{{ keywords }}">
+          </div>
+        </div>
+      </div>
+      <div class="col s4 m2">
+        <input class="waves-effect waves-light btn" type="submit" value="検索">
+      </div>
+    </div>
+  </form>
   {% if equipment_list %}
-  <h1>貸出備品一覧: {{ username }}</h1>
-
-  <!-- test search form -->
-  <form method="post" action="/system/">
-    {% csrf_token %}
-    <input type="text" placeholder="search">
-    <input type="button" value="submit">
-  </form><br>
-  <!-- end test search form -->
-
   <!-- main content -->
-
-  <table>
-    <tr>
-      <th>貸出ボタン</th>
-      <th>名前</th>
-      <th>貸出回数</th>
-      <th>予約数</th>
-      <th>借りてる人</th>
-    </tr>
+  <ul class="col s12">
     {% for equipment in equipment_list %}
-    <tr>
-      <td>
-        <form method="post" action="{{ equipment.button.url }}">
-          {% csrf_token %}
-          <button name="equipment_name" value="{{ equipment.equipment_name }}">{{ equipment.button }}</button>
-        </form>
-      </td>
-      <td>{{ equipment.equipment_name}}</td>
-      <td>{{ equipment.Lend_count }}</td>
-      <td>{{ equipment.reserved_num }}</td>
-      <td>{{ equipment.borrower }}</td>
-    </tr>
+    <li class="row">
+      <div class="card col s12">
+        <div class="card-content">
+          <span class="card-title"><h4>{{ equipment }}</h4></span>
+          <p>
+          <h5>著者: {{ equipment.author }}</h6>
+          <a href="{{ equipment.product_url }}">詳細</a>
+          </p>
+          <br>
+          <div class="list-group-item-text">
+            <form action="{% url 'system:tag_remove' %}" class="ajax_remove">
+              Tags:<span class="tag-item-group">
+                {% for tag in equipment.tags %}
+                <span class="tag-item">
+                  <div class="chip">
+                    {{ tag }}
+                    <i class="material-icons glyphicon-remove" aria-hidden="true">close</i>
+                    <input type="hidden" value="{{ tag.relation_id }}">
+                  </div>
+                </span>
+                {% endfor %}
+              </span>
+            </form>
+          </div>
+        </div>
+        <div class="card-action">
+          <form class="right" method="post" action="{{ equipment.button.url }}">
+            {% csrf_token %}
+            <button class="btn" name="equipment_id" value="{{ equipment.id }}">{{ equipment.button }}</button>
+          </form>
+          <a class="edit-show">タグ編集</a>
+
+          <div class="tag-edit">
+            <form class="ajax_post" action="{% url 'system:tag_add' %}">
+              {% csrf_token %}
+              <div class="input-group">
+                <input type="text" name="tag-keywords" class="form-control tag-input" placeholder="空白を入れると複数追加">
+                <input type="hidden" value="{{ equipment.id }}" class="equipment_id"/>
+                <span class="input-group-btn">
+                  <button class="btn tag-submit" type="button">追加</button>
+                </span>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </li>
     {% endfor %}
-  </table>
+  </ul>
   {% else %}
-    <p>no equipment_list</p>
+  <p>no equipment_list</p>
   {% endif %}
   <!-- end main content -->
-
+</div>
 {% endblock %}
