@@ -21,11 +21,16 @@ def addEquipmentView(request):
     author = request.GET.get("author")
     publisher = request.GET.get("publisher")
     isbn = request.GET.get("isbn")
-    if request.GET and (
+    if isbn:
+        item = RakutenBooks.getItem(isbn)
+        if item:
+            items.append(item.createEquipment())
+        else:
+            error = "検索結果が見つかりませんでした。"
+    elif request.GET and (
             keyword or
             author or
-            publisher or
-            isbn):
+            publisher):
         rakutenApi = RakutenBooks(
                 title=keyword,
                 author=author,
