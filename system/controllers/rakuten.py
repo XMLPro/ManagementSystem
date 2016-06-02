@@ -15,7 +15,8 @@ class Rakuten():
 
     __APPLICATION_ID = "1011546524580691339"
     searchResult = None
-    isbn_url = "http://iss.ndl.go.jp/api/sru?operation=searchRetrieve&query=isbn={isbn}"
+    isbn_url = "http://iss.ndl.go.jp/api/sru\
+            ?operation=searchRetrieve&query=isbn={isbn}"
 
     def __init__(self, **query):
         self._queryUrl = self._createQueryUrl(**query)
@@ -62,8 +63,8 @@ class Item():
     def createEquipment(self):
         product_url = self.get("itemUrl")
         equipment_name = self.get("title")
-        product_url = product_url if product_url else\
-                "https://www.google.co.jp/search?q=" + equipment_name
+        product_url = product_url if product_url\
+            else "https://www.google.co.jp/search?q=" + equipment_name
         return Equipment(
                 equipment_name=equipment_name,
                 author=self.get("author"),
@@ -97,8 +98,13 @@ class RakutenBooks(Rakuten):
     @staticmethod
     def nationalDietLibraryGetItem(isbn):
         isbn = re.sub(r"\D", "", str(isbn))
-        tree = ElementTree.fromstring(requests.get(Rakuten.isbn_url.format(isbn=isbn)).text)
-        recordData = tree.find("{http://www.loc.gov/zing/srw/}records").find("{http://www.loc.gov/zing/srw/}record").find("{http://www.loc.gov/zing/srw/}recordData")
+        tree = ElementTree.fromstring(
+                requests.get(Rakuten.isbn_url.format(isbn=isbn)).text)
+        recordData = tree.find(
+                    "{http://www.loc.gov/zing/srw/}records"
+                ).find(
+                    "{http://www.loc.gov/zing/srw/}record"
+                ).find("{http://www.loc.gov/zing/srw/}recordData")
         tree = ElementTree.fromstring(recordData.text)
         dc = "{http://purl.org/dc/elements/1.1/}"
         return Item({
@@ -108,6 +114,7 @@ class RakutenBooks(Rakuten):
             "isbn": isbn,
             "itemPrice": 0,
             })
+
 
 class RakutenIchiba(Rakuten):
     """このクラスは、楽天商品検索apiを使うためのクラスです。
