@@ -15,9 +15,9 @@ class Rakuten():
 
     __APPLICATION_ID = "1011546524580691339"
     searchResult = None
-    isbn_url = "http://iss.ndl.go.jp/api/sru\
-            ?operation=searchRetrieve&query=isbn={isbn}"
-
+    isbn_url = """http://iss.ndl.go.jp/api/sru\
+?operation=searchRetrieve&query=isbn={isbn}"""
+    print(isbn_url)
     def __init__(self, **query):
         self._queryUrl = self._createQueryUrl(**query)
 
