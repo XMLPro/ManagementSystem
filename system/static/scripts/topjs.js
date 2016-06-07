@@ -49,7 +49,7 @@ $(function () {
                 for (var i = 0; i < arr.length; i++) {
                     event_tag.parents('li').find('.tag-item-group').append(
                             "<span class='tag-item'>" +
-                            "<div class='chip'>" + arr[i] +
+                            "<div class='chip'>" + sanitaize.encode(arr[i]) +
                             "<i class='material-icons glyphicon-remove' aria-hidden='true'>close</i>" +
                             "<input type='hidden' value='" + response.tags_id[i] + "'>" +
                             "</div>"
@@ -100,4 +100,13 @@ $(function () {
         }
     });
 }
+sanitaize = {
+  encode : function (str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  },
+
+  decode : function (str) {
+    return str.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, '\'').replace(/&amp;/g, '&');
+  }
+};
 );
